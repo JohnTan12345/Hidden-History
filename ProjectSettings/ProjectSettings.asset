@@ -924,11 +924,11 @@ PlayerSettings:
   captureStartupLogs: {}
   activeInputHandler: 1
   windowsGamepadBackendHint: 0
-  cloudProjectId: 23977faf-5ba5-4182-8158-e9eb912a0a1e
+  cloudProjectId: 277b92e9-ec7c-4429-a420-9654e9c2a74c
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: Hidden History
-  organizationId: johntanhongyan-gmail-com
+  projectName: HiddenHistory 2025-11-11_13-24-52
+  organizationId: ray_c29
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}
