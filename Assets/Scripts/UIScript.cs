@@ -9,8 +9,6 @@ public class UIScript : MonoBehaviour
     public GameObject changeLoginSignUpButton;
     public GameObject emailInput;
     public GameObject passwordInput;
-    public GameObject loadDataButton;
-    public GameObject saveDataButton;
 
     private string email;
     private string password;
