@@ -5,6 +5,6 @@ public class MainEvent : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Auth.CreateNewAccount("wallahi@gmail.com", "2332");
+        Auth.CreateNewAccountAsync("wallahi@gmail.com", "2332");
     }
 }
