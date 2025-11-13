@@ -61,6 +61,13 @@ public class User
         Debug.Log(userData.artifactFixed);
     }
 
+    public async Task SaveUserDataAsync()
+    {
+        Debug.Log("Saving User Data");
+        await DatabaseHandler.SaveUserDataAsync(this);
+        
+    }
+
 }
 
 public class UserData
