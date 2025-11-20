@@ -1,12 +1,13 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PaintingGalleryManager : MonoBehaviour
 {
     public PaintingData[] paintings;
-    public Text titleText;
-    public Text infoText;
-
+    public TextMeshProUGUI titleText;
+    public TextMeshProUGUI infoText;
+    
     public Image[] elementSlots;
 
     private int currentIndex = 0;
