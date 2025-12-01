@@ -2228,13 +2228,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   paintings: []
-  titleText: {fileID: 1585456842}
-  infoText: {fileID: 724998779}
-  elementSlots:
-  - {fileID: 1743205791}
-  - {fileID: 2023591335}
-  - {fileID: 849931903}
-  - {fileID: 1414254024}
 --- !u!1 &425410336
 GameObject:
   m_ObjectHideFlags: 0
