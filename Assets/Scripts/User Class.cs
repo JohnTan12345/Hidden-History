@@ -3,6 +3,31 @@ using System.Threading.Tasks;
 using Firebase.Database;
 using UnityEngine;
 
+public static class Users
+{
+    private static Dictionary<string, string> usernameTable = new Dictionary<string, string>{};
+    private static Dictionary<string, User> users = new Dictionary<string, User>{};
+
+    public static string UsernameToUserID(string username)
+    {
+        return usernameTable[username];
+    }
+    public static Dictionary<string, User> GetUsers()
+    {
+        return users;
+    }
+
+    public static User GetUser(string userID)
+    {
+        return users[userID];
+    }
+
+    public static void AddUser(User user, string username = "Default")
+    {
+        users.Add(user.UserID, user);
+        usernameTable.Add(username, user.UserID);
+    }
+}
 public class User
 {
     // User ID Parameter

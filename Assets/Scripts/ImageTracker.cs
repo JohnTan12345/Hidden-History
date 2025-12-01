@@ -6,6 +6,7 @@ using UnityEngine.XR.ARSubsystems;
 
 public class ImageTracker : MonoBehaviour
 {
+    public GameObject DigButton;
     [SerializeField]
     private ARTrackedImageManager trackedImageManager;
 
@@ -66,11 +67,16 @@ public class ImageTracker : MonoBehaviour
                 //Disable the associated content
                 spawnedPrefabs[trackedImage.referenceImage.name].transform.SetParent(null);
                 spawnedPrefabs[trackedImage.referenceImage.name].SetActive(false);
+                DigButton.SetActive(false);
             }
             else if (trackedImage.trackingState == TrackingState.Tracking)
             {
                 Debug.Log(trackedImage.gameObject.name + " is being tracked.");
                 //Enable the associated content
+
+                // Make the dig button visible
+                DigButton.SetActive(true);
+
                 if(spawnedPrefabs[trackedImage.referenceImage.name].transform.parent != trackedImage.transform)
                 {
                     Debug.Log("Enabling associated content: " + spawnedPrefabs[trackedImage.referenceImage.name].name);
