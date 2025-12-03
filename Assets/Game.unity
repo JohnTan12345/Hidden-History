@@ -1547,8 +1547,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 401617055}
-        m_TargetAssemblyTypeName: PaintingGalleryManager, Assembly-CSharp
-        m_MethodName: PreviousPainting
+        m_TargetAssemblyTypeName: ArtifactPageManager, Assembly-CSharp
+        m_MethodName: PreviousPage
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2929,7 +2929,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &401617052
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3009,14 +3009,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 402032b4ecbfc104c81e2cd4616823fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  paintings: []
-  titleText: {fileID: 1585456842}
-  infoText: {fileID: 724998779}
-  elementSlots:
-  - {fileID: 1743205791}
-  - {fileID: 2023591335}
-  - {fileID: 849931903}
-  - {fileID: 1414254024}
+  artifactPages:
+  - {fileID: 571265250}
+  - {fileID: 306132817}
+  - {fileID: 1162263528}
+  - {fileID: 1700096583}
+  - {fileID: 1722525421}
+  - {fileID: 1532279205}
+  artifactTitleText: {fileID: 1585456842}
+  artifactDescriptionText: {fileID: 724998779}
 --- !u!1 &425410336
 GameObject:
   m_ObjectHideFlags: 0
@@ -10889,18 +10890,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2099970472}
-        m_TargetAssemblyTypeName: ARTemplateMenuManager, Assembly-CSharp
-        m_MethodName: ShowHideModal
+      - m_Target: {fileID: 401617051}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgumentAssemblyTypeName: 
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 0
+        m_CallState: 2
 --- !u!114 &1489118114
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13980,8 +13981,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 401617055}
-        m_TargetAssemblyTypeName: PaintingGalleryManager, Assembly-CSharp
-        m_MethodName: NextPainting
+        m_TargetAssemblyTypeName: ArtifactPageManager, Assembly-CSharp
+        m_MethodName: NextPage
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

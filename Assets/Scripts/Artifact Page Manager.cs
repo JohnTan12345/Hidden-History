@@ -8,8 +8,8 @@ public class ArtifactPageManager : MonoBehaviour
     public GameObject[] artifactPages;
 
     [Header("Artifact Panel")]
-    public TextMeshPro artifactTitleText;
-    public TextMeshPro artifactDescriptionText;
+    public TextMeshProUGUI artifactTitleText;
+    public TextMeshProUGUI artifactDescriptionText;
 
     private int pageNumber = 0;
     public int PageNumber {get{return pageNumber + 1;}}
