@@ -8,6 +8,7 @@ public class ArtifactPageManager : MonoBehaviour
     public GameObject[] artifactPages;
 
     [Header("Artifact Panel")]
+    public GameObject artifactPanel;
     public TextMeshProUGUI artifactTitleText;
     public TextMeshProUGUI artifactDescriptionText;
 
@@ -44,5 +45,16 @@ public class ArtifactPageManager : MonoBehaviour
         artifactTitleText.text = artifactPageInfo.title;
         artifactDescriptionText.text = artifactPageInfo.description;
         artifactPage.SetActive(true);
+    }
+
+    public void ToggleArtifactPanel()
+    {
+        bool isActive = artifactPanel.activeSelf;
+        artifactPanel.SetActive(!isActive);
+
+        if (!isActive)
+        {
+            GetPageInfo();
+        }
     }
 }
