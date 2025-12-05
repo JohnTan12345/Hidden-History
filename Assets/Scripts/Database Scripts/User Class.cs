@@ -1,3 +1,8 @@
+//-------------
+// Created by: John Tan
+// Description: Literally the user class.
+//------------
+
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Firebase.Database;
@@ -7,6 +12,7 @@ public static class Users
 {
     private static Dictionary<string, string> usernameTable = new Dictionary<string, string>{};
     private static Dictionary<string, User> users = new Dictionary<string, User>{};
+    public static bool DefaultUserLoaded = false;
 
     public static string UsernameToUserID(string username)
     {
@@ -22,10 +28,20 @@ public static class Users
         return users[userID];
     }
 
+    public static User GetDefaultUser()
+    {
+        return users[usernameTable["Default"]];
+    }
+
     public static void AddUser(User user, string username = "Default")
     {
         users.Add(user.UserID, user);
         usernameTable.Add(username, user.UserID);
+
+        if (username == "Default")
+        {
+            DefaultUserLoaded = true;
+        }
     }
 }
 public class User
@@ -36,7 +52,7 @@ public class User
     public string UserID { get { return userID; } set { SetUserID(value); } }
 
     // Other Parameters
-    public UserData userData;
+    public UserData userData = new UserData();
 
     private bool dataLoaded;
     public bool DataLoaded { get { return dataLoaded; } }
@@ -76,14 +92,15 @@ public class User
         {
             Debug.Log("It exists");
             userData = JsonUtility.FromJson<UserData>(UserDataSnapshot.GetRawJsonValue());
+            dataLoaded = true;
         }
         else
         {
             Debug.Log("It works but no data");
+            dataLoaded = true;
         }
-
-        Debug.Log(UserDataSnapshot.GetRawJsonValue());
-        Debug.Log(userData.artifactFixed);
+        Debug.Log("New User Created!");
+        Users.AddUser(this);
     }
 
     public async Task SaveUserDataAsync()
@@ -97,7 +114,7 @@ public class User
 
 public class UserData
 {
-    public List<string> collectedPieces = new List<string>();
+    public List<string> collectedPieces = new List<string>() {};
     public bool artifactFixed = false;
 
 }
