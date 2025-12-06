@@ -7,44 +7,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Firebase.Database;
 using UnityEngine;
-
-public static class Users
-{
-    private static Dictionary<string, string> usernameTable = new Dictionary<string, string>{};
-    private static Dictionary<string, User> users = new Dictionary<string, User>{};
-    public static bool DefaultUserLoaded = false;
-
-    public static string UsernameToUserID(string username)
-    {
-        return usernameTable[username];
-    }
-    public static Dictionary<string, User> GetUsers()
-    {
-        return users;
-    }
-
-    public static User GetUser(string userID)
-    {
-        return users[userID];
-    }
-
-    public static User GetDefaultUser()
-    {
-        return users[usernameTable["Default"]];
-    }
-
-    public static void AddUser(User user, string username = "Default")
-    {
-        users.Add(user.UserID, user);
-        usernameTable.Add(username, user.UserID);
-
-        if (username == "Default")
-        {
-            DefaultUserLoaded = true;
-        }
-    }
-}
-public class User
+public class User // One user
 {
     // User ID Parameter
     private string userID;
@@ -73,7 +36,7 @@ public class User
 
     public async Task CreateNewUserAsync(string userID) // Try out using async task instead of coroutines since it wont be affecting gameobjects
     {
-        UserID = userID;
+        SetUserID(userID);
         DataSnapshot UserDataSnapshot = null;
         for (int tries = 0; tries < 5; tries++)
         {
@@ -84,35 +47,34 @@ public class User
             }
         }
 
-        if (UserDataSnapshot == null)
+        if (UserDataSnapshot == null) // If database errors out after 5 tries
         {
             Debug.Log("Failed to load data");
         }
-        else if (UserDataSnapshot.Exists)
+        else if (UserDataSnapshot.Exists) // If there is userdata
         {
             Debug.Log("It exists");
             userData = JsonUtility.FromJson<UserData>(UserDataSnapshot.GetRawJsonValue());
             dataLoaded = true;
         }
-        else
+        else // If there is no userdata
         {
-            Debug.Log("It works but no data");
+            Debug.Log("No data found");
             dataLoaded = true;
         }
         Debug.Log("New User Created!");
-        Users.AddUser(this);
+        Users.AddUser(this); // Add this user to the user list
     }
 
-    public async Task SaveUserDataAsync()
+    public async Task SaveUserDataAsync() // Saving data
     {
         Debug.Log("Saving User Data");
         await DatabaseHandler.SaveUserDataAsync(this);
-        
     }
 
 }
 
-public class UserData
+public class UserData // Userdata saved in database
 {
     public List<string> collectedPieces = new List<string>() {};
     public bool artifactFixed = false;

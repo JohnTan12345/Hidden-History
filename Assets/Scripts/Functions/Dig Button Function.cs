@@ -1,7 +1,12 @@
+//----------
+// Created By: John Tan
+// Description: Dig Functions
+//----------
+
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Button))]
+[RequireComponent(typeof(Button))] // Always add the button component when this script is added
 public class DigButtonFunction : MonoBehaviour
 {
     [SerializeField]
@@ -22,7 +27,7 @@ public class DigButtonFunction : MonoBehaviour
     {
         button = GetComponent<Button>();
         button.onClick.AddListener(OnDig);
-        imageTracker.OnTrackedObjectChanged += OnObjectActive;
+        imageTracker.OnTrackedObjectChanged += OnObjectActive; // Always fire OnObjectActive when tracked object changes
     }
 
     private void OnObjectActive(GameObject newTrackedObject)
@@ -33,15 +38,17 @@ public class DigButtonFunction : MonoBehaviour
     }
     private void OnDig()
     {
-        if (artifactInfo == null)
+        if (artifactInfo == null) // Check if artifactInfo is null
         {
             OnObjectActive(imageTracker.trackedObject);
         }
 
-        artifactInfo.digProgess += 1;
-        if (artifactInfo.digProgess >= 5)
+        artifactInfo.digProgess++;
+
+        if (artifactInfo.digProgess >= 5) // If player pressed the button 5 times
         {
-            Destroy(trackedObject);
+            Users.GetDefaultUser().userData.collectedPieces.Add(trackedObject.name); // Add artifact to player collected artifacts
+            Destroy(trackedObject); // Remove the object
             imageTracker.SetUIActive(false);
         }
         UI_Update();

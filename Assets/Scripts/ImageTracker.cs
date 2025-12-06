@@ -44,7 +44,6 @@ public class ImageTracker : MonoBehaviour
     {
         yield return new WaitUntil(() => Users.DefaultUserLoaded && Users.GetDefaultUser().DataLoaded);
         Debug.Log("User Found!");
-        Debug.Log(Users.GetDefaultUser().userData);
         foreach (GameObject prefab in placeablePrefabs)
         {
             if (!Users.GetDefaultUser().userData.collectedPieces.Contains(prefab.name))
@@ -116,6 +115,9 @@ public class ImageTracker : MonoBehaviour
                 {
                     trackedObject = null;
                     SetUIActive(false);
+                } catch (KeyNotFoundException)
+                {
+                    Debug.Log("Object either has bad naming convention, or is already found");
                 }
             }
         }
