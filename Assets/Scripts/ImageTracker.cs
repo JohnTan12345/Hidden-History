@@ -53,6 +53,7 @@ public class ImageTracker : MonoBehaviour
                 newPrefab.SetActive(false);
                 spawnedPrefabs.Add(prefab.name, newPrefab);
                 spawnedObjects.Add(newPrefab, prefab);
+                newPrefab.AddComponent<ArtifactInfo>();
             }
         }
         PrefabsLoaded = true;

@@ -25,10 +25,6 @@ public class GameManager : MonoBehaviour
         
         foreach(GameObject artifactPage in artifactPageManager.artifactPages)
         {
-            Debug.Log(artifactPage);
-            Debug.Log(artifactPage.GetComponent<ArtifactPageInfo>());
-            Debug.Log(artifactPage.GetComponent<ArtifactPageInfo>().artifacts);
-            Debug.Log(artifactPage.GetComponent<ArtifactPageInfo>().artifacts.Count());
             totalArtifactsCount += artifactPage.GetComponent<ArtifactPageInfo>().artifacts.Count();
         };
 
