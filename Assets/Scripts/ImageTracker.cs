@@ -1,3 +1,10 @@
+//----------
+// Edited by: John Tan
+// Description: Added a way to toggle the dig button as well as only load needed prefabs
+//----------
+
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
@@ -7,11 +14,16 @@ using UnityEngine.XR.ARSubsystems;
 public class ImageTracker : MonoBehaviour
 {
     public GameObject DigButton;
+    public GameObject ProgressBar;
+    public GameObject trackedObject;
+    public event Action<GameObject> OnTrackedObjectChanged;
     [SerializeField]
     private ARTrackedImageManager trackedImageManager;
 
     [SerializeField]
     private GameObject[] placeablePrefabs;
+
+    private bool PrefabsLoaded = false;
 
     private Dictionary<string, GameObject> spawnedPrefabs = new Dictionary<string, GameObject>();
 
@@ -24,20 +36,27 @@ public class ImageTracker : MonoBehaviour
         if (trackedImageManager != null)
         {
             trackedImageManager.trackablesChanged.AddListener(OnImageChanged);
-            SetupPrefabs();
+            StartCoroutine(SetupPrefabs());
         }
     }
 
-    void SetupPrefabs()
+    IEnumerator SetupPrefabs()
     {
+        yield return new WaitUntil(() => Users.DefaultUserLoaded && Users.GetDefaultUser().DataLoaded);
+        Debug.Log("User Found!");
         foreach (GameObject prefab in placeablePrefabs)
         {
-            GameObject newPrefab = Instantiate(prefab);
-            newPrefab.name = prefab.name;
-            newPrefab.SetActive(false);
-            spawnedPrefabs.Add(prefab.name, newPrefab);
-            spawnedObjects.Add(newPrefab, prefab);
+            if (!Users.GetDefaultUser().userData.collectedPieces.Contains(prefab.name))
+            {
+                GameObject newPrefab = Instantiate(prefab);
+                newPrefab.name = prefab.name;
+                newPrefab.SetActive(false);
+                spawnedPrefabs.Add(prefab.name, newPrefab);
+                spawnedObjects.Add(newPrefab, prefab);
+                newPrefab.AddComponent<ArtifactInfo>();
+            }
         }
+        PrefabsLoaded = true;
     }
 
     void OnImageChanged(ARTrackablesChangedEventArgs<ARTrackedImage> eventArgs)
@@ -60,33 +79,54 @@ public class ImageTracker : MonoBehaviour
 
     void UpdateImage(ARTrackedImage trackedImage)
     {
-        if(trackedImage != null)
+        if(trackedImage != null && PrefabsLoaded)
         {
             if (trackedImage.trackingState == TrackingState.Limited || trackedImage.trackingState == TrackingState.None)
             {
                 //Disable the associated content
-                spawnedPrefabs[trackedImage.referenceImage.name].transform.SetParent(null);
-                spawnedPrefabs[trackedImage.referenceImage.name].SetActive(false);
-                DigButton.SetActive(false);
+                try {
+                    spawnedPrefabs[trackedImage.referenceImage.name].transform.SetParent(null);
+                    spawnedPrefabs[trackedImage.referenceImage.name].SetActive(false);
+                } catch (MissingReferenceException)
+                {
+                    print("Object has been deleted");
+                }
+                SetUIActive(false);
+                trackedObject = null;
             }
             else if (trackedImage.trackingState == TrackingState.Tracking)
             {
-                Debug.Log(trackedImage.gameObject.name + " is being tracked.");
                 //Enable the associated content
 
                 // Make the dig button visible
-                DigButton.SetActive(true);
+                try {
+                    if(spawnedPrefabs[trackedImage.referenceImage.name].transform.parent != trackedImage.transform)
+                    {
+                        Debug.Log("Enabling associated content: " + spawnedPrefabs[trackedImage.referenceImage.name].name);
+                        spawnedPrefabs[trackedImage.referenceImage.name].transform.SetParent(trackedImage.transform);
+                        spawnedPrefabs[trackedImage.referenceImage.name].transform.localPosition = spawnedObjects[spawnedPrefabs[trackedImage.referenceImage.name]].transform.localPosition;
+                        spawnedPrefabs[trackedImage.referenceImage.name].transform.localRotation = spawnedObjects[spawnedPrefabs[trackedImage.referenceImage.name]].transform.localRotation;
 
-                if(spawnedPrefabs[trackedImage.referenceImage.name].transform.parent != trackedImage.transform)
+                        spawnedPrefabs[trackedImage.referenceImage.name].SetActive(true);
+                        trackedObject = spawnedPrefabs[trackedImage.referenceImage.name];
+                        OnTrackedObjectChanged?.Invoke(trackedObject);
+                        SetUIActive(true);
+                    }
+                } catch (MissingReferenceException)
                 {
-                    Debug.Log("Enabling associated content: " + spawnedPrefabs[trackedImage.referenceImage.name].name);
-                    spawnedPrefabs[trackedImage.referenceImage.name].transform.SetParent(trackedImage.transform);
-                    spawnedPrefabs[trackedImage.referenceImage.name].transform.localPosition = spawnedObjects[spawnedPrefabs[trackedImage.referenceImage.name]].transform.localPosition;
-                    spawnedPrefabs[trackedImage.referenceImage.name].transform.localRotation = spawnedObjects[spawnedPrefabs[trackedImage.referenceImage.name]].transform.localRotation;
-
-                    spawnedPrefabs[trackedImage.referenceImage.name].SetActive(true);
+                    trackedObject = null;
+                    SetUIActive(false);
+                } catch (KeyNotFoundException)
+                {
+                    Debug.Log("Object either has bad naming convention, or is already found");
                 }
             }
         }
+    }
+
+    public void SetUIActive(bool value)
+    {
+        DigButton.SetActive(value);
+        ProgressBar.SetActive(value);
     }
 }

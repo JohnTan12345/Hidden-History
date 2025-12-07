@@ -1,3 +1,8 @@
+//-------------
+// Created by: John Tan
+// Description: Database call wrappers
+//------------
+
 using System;
 using System.Threading.Tasks;
 using Firebase.Database;
