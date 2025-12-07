@@ -11,6 +11,8 @@ public class DigButtonFunction : MonoBehaviour
 {
     [SerializeField]
     private ImageTracker imageTracker;
+    [SerializeField]
+    private GameManager gameManager;
     [Header("Progress Bar")]
     [SerializeField]
     [Tooltip("This refers to the Progress Bar entirely")]
@@ -48,8 +50,10 @@ public class DigButtonFunction : MonoBehaviour
         if (artifactInfo.digProgess >= 5) // If player pressed the button 5 times
         {
             Users.GetDefaultUser().userData.collectedPieces.Add(trackedObject.name); // Add artifact to player collected artifacts
+            gameManager.CurrentArtifactsCount++;
             Destroy(trackedObject); // Remove the object
             imageTracker.SetUIActive(false);
+            Users.GetDefaultUser().SaveUserDataAsync();
         }
         UI_Update();
     }

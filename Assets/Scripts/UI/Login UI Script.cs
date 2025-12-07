@@ -1,11 +1,9 @@
 using System.Collections;
-using System.Collections.Generic;
-using Firebase.Database;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class UIScript : MonoBehaviour
+public class LoginUIScript : MonoBehaviour
 {
     public GameObject loginButton;
     public GameObject changeLoginSignUpButton;

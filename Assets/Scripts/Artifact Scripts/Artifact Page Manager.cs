@@ -1,25 +1,28 @@
+using System.Collections;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ArtifactPageManager : MonoBehaviour
 {
+    public GameManager gameManager;
     [Header("Artifact Pages")]
     [Tooltip("Place artifact pages here, the indexes are page numbers")]
     [SerializeField]
-    private GameObject[] artifactPages;
+    public GameObject[] artifactPages;
 
     [Header("Artifact Panel")]
     [SerializeField]
-    private TextMeshPro artifactTitleText;
+    private TextMeshProUGUI artifactTitleText;
     [SerializeField]
-    private TextMeshPro artifactDescriptionText;
+    private TextMeshProUGUI artifactDescriptionText;
 
     [Header("Buttons")]
     [SerializeField]
-    private Button openPanelButton;
+    private Button nextPageButton;
     [SerializeField]
-    private Button closePanelButton;
+    private Button prevPageButton;
 
     private int pageNumber = 0;
     public int PageNumber {get{return pageNumber + 1;}}
@@ -27,27 +30,40 @@ public class ArtifactPageManager : MonoBehaviour
 
     void Start()
     {
-        totalPages = artifactPages.Length;
+        totalPages = artifactPages.Length - 1;
 
         if (totalPages <= 0)
         {
             throw new System.Exception("You can't have 0 or less artifact pages!\nDid you forget to add in the pages to Artifact Page Manager?");
         }
 
-        openPanelButton.onClick.AddListener(OpenArtifactPanel);
-        closePanelButton.onClick.AddListener(CloseArtifactPanel);
+        foreach (GameObject artifactPage in artifactPages)
+        {
+            artifactPage.SetActive(false);
+        }
+
+        nextPageButton.onClick.AddListener(NextPage);
+        prevPageButton.onClick.AddListener(PreviousPage);
+    }
+    void OnEnable()
+    {
+        artifactPages[pageNumber].SetActive(true);
+    }
+    void OnDisable()
+    {
+        artifactPages[pageNumber].SetActive(false);
     }
     public void NextPage()
     {
         artifactPages[pageNumber].SetActive(false);
-        pageNumber = pageNumber<totalPages?pageNumber++:0;
+        pageNumber = pageNumber<totalPages?pageNumber+1:0;
         GetPageInfo();
     }
 
     public void PreviousPage()
     {
         artifactPages[pageNumber].SetActive(false);
-        pageNumber = pageNumber>0?pageNumber--:totalPages;
+        pageNumber = pageNumber>0?pageNumber-1:totalPages;
         GetPageInfo();
     }
     private void GetPageInfo()
@@ -56,33 +72,7 @@ public class ArtifactPageManager : MonoBehaviour
         ArtifactPageInfo artifactPageInfo = artifactPage.GetComponent<ArtifactPageInfo>();
         artifactTitleText.text = artifactPageInfo.title;
         artifactDescriptionText.text = artifactPageInfo.description;
+        Debug.Log(artifactPage);
         artifactPage.SetActive(true);
-    }
-    private void LoadArtifacts()
-    {
-        for (int i = 0; i < artifactPages.Length; i++) {
-            GameObject artifactPage = artifactPages[i];
-            for (int i1 = 0; i1 < artifactPage.GetComponent<ArtifactPageInfo>().artifacts.Length; i1++)
-            {
-                GameObject artifact = artifactPage.GetComponent<ArtifactPageInfo>().artifacts[i1];
-                if (Users.GetDefaultUser().userData.collectedPieces.Contains(artifact.name))
-                {
-                    artifact.SetActive(true);
-                } else
-                {
-                    artifact.SetActive(false);
-                }
-            }
-        }
-    }
-    private void OpenArtifactPanel()
-    {
-        LoadArtifacts();
-        gameObject.SetActive(true);
-    }
-
-    private void CloseArtifactPanel()
-    {
-        gameObject.SetActive(false);
     }
 }

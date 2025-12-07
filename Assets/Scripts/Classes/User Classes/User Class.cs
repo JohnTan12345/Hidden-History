@@ -77,6 +77,6 @@ public class User // One user
 public class UserData // Userdata saved in database
 {
     public List<string> collectedPieces = new List<string>() {};
-    public bool artifactFixed = false;
+    public string currentMission = "Find the hidden artifacts";
 
 }
