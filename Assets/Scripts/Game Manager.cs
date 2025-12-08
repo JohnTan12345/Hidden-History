@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("Testing Parameters")]
+    public bool testing;
+    [Header("Normal Parameters")]
     public GameUIScript gameUIScript;
     public ArtifactPageManager artifactPageManager;
     private int totalArtifactsCount = 0;
@@ -12,6 +15,10 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        if (testing)
+        {
+            new User().CreateNewUserAsync("TestUser");
+        }
         StartCoroutine(GetArtifactCollectedCount());
     }
     public void OnArtifactCountChanged()
