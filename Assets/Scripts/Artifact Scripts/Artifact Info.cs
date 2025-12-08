@@ -6,7 +6,7 @@ using UnityEngine;
 public class ArtifactInfo : MonoBehaviour
 {
     public int digProgess = 0;
-
+    public GameObject dirtMound;
 
     private CancellationTokenSource timerStop;
 

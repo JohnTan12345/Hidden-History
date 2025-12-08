@@ -15,6 +15,7 @@ public class DatabaseHandler
     {
         try
         {
+            FirebaseDatabase.DefaultInstance.SetPersistenceEnabled(false);
             DatabaseReference userDatadatabase = FirebaseDatabase.DefaultInstance.GetReference("UserData");
             return userDatadatabase.Child(userID).GetValueAsync();
         }

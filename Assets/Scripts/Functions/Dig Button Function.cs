@@ -20,15 +20,23 @@ public class DigButtonFunction : MonoBehaviour
     [SerializeField]
     [Tooltip("This refers to the bar INSIDE the progress bar")]
     private GameObject DigProgressBar;
-    private Button button;
+    private Button digButton;
+    [Header("Found Panel UI")]
+    [SerializeField]
+    [Tooltip("The button inside the \"found\" panel")]
+    private GameObject foundPanel;
+    [SerializeField]
+    private Button acknowledgeButton;
     
     private GameObject trackedObject;
+    private GameObject foundTrackedObject;
     private ArtifactInfo artifactInfo;
 
     void Start()
     {
-        button = GetComponent<Button>();
-        button.onClick.AddListener(OnDig);
+        digButton = GetComponent<Button>();
+        digButton.onClick.AddListener(OnDig);
+        acknowledgeButton.onClick.AddListener(onButtonPressed);
         imageTracker.OnTrackedObjectChanged += OnObjectActive; // Always fire OnObjectActive when tracked object changes
     }
 
@@ -50,14 +58,21 @@ public class DigButtonFunction : MonoBehaviour
         if (artifactInfo.digProgess >= 5) // If player pressed the button 5 times
         {
             Users.GetDefaultUser().userData.collectedPieces.Add(trackedObject.name); // Add artifact to player collected artifacts
+            foundTrackedObject = trackedObject;
             gameManager.CurrentArtifactsCount++;
-            Destroy(trackedObject); // Remove the object
-            imageTracker.SetUIActive(false);
             Users.GetDefaultUser().SaveUserDataAsync();
+            Destroy(trackedObject.GetComponent<ArtifactInfo>().dirtMound);
+            foundPanel.SetActive(true);
         }
         UI_Update();
     }
 
+    private void onButtonPressed()
+    {
+        foundPanel.SetActive(false);
+        Destroy(foundTrackedObject); // Remove the object
+        imageTracker.SetUIActive(false);
+    }
     private void UI_Update()
     {
         print(artifactInfo.digProgess / 5f);

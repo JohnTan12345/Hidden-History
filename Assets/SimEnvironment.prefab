@@ -802,7 +802,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c39bb24e2bd7a482ca08117fb44b8e44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Image: {fileID: 2800000, guid: 1d9cc665e5d72a745bdba831af47bae2, type: 3}
+  m_Image: {fileID: 2800000, guid: e29695a61d1688a47b273cc0d9edc1e8, type: 3}
   m_ImagePhysicalSizeMeters: {x: 0.1, y: 0.1}
   m_QuadMesh: {fileID: 0}
   m_QuadMaterial: {fileID: 0}
