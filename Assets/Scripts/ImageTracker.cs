@@ -21,6 +21,8 @@ public class ImageTracker : MonoBehaviour
     private ARTrackedImageManager trackedImageManager;
 
     [SerializeField]
+    private GameObject dirtMoundPrefab;
+    [SerializeField]
     private GameObject[] placeablePrefabs;
 
     private bool PrefabsLoaded = false;
@@ -54,6 +56,12 @@ public class ImageTracker : MonoBehaviour
                 spawnedPrefabs.Add(prefab.name, newPrefab);
                 spawnedObjects.Add(newPrefab, prefab);
                 newPrefab.AddComponent<ArtifactInfo>();
+
+                GameObject newDirtMoundPrefab = Instantiate(dirtMoundPrefab);
+                newPrefab.GetComponent<ArtifactInfo>().dirtMound = newDirtMoundPrefab;
+                newDirtMoundPrefab.name = "Dirt Mound";
+                newDirtMoundPrefab.transform.parent = newPrefab.transform;
+                newDirtMoundPrefab.transform.position = new Vector3(0,0,0);
             }
         }
         PrefabsLoaded = true;

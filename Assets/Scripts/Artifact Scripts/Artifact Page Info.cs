@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 [System.Serializable]
 public class ArtifactPageInfo : MonoBehaviour
@@ -9,8 +10,15 @@ public class ArtifactPageInfo : MonoBehaviour
     public GameObject silhouette;
 
     [Header("Artifact Images")]
+    [Tooltip("This refers to the gameobject that contains all the artifacts")]
+    public GameObject artifactGroupGameObject;
     public GameObject[] artifacts;
-
+    private GameObject[] collectedArtifacts;
+    [Tooltip("The painting that is shown after collecting all artifacts")]
+    [HideInInspector]
+    public GameObject[] remainingArtifacts; // Future use
+    public GameObject fullPainting;
+    private int collected = 0;
     void OnEnable()
     {
         StartCoroutine(LoadArtifacts());
@@ -26,13 +34,26 @@ public class ArtifactPageInfo : MonoBehaviour
             {
                 if (collectedArtifact == artifact.name)
                 {
-                    artifact.SetActive(true);
+                    collectedArtifacts.Append(artifact);
+                    collected++;
                 }
                 else
                 {
-                    artifact.SetActive(false);
+                    remainingArtifacts.Append(artifact);
                 }
             }
         }
+
+        if (collected == artifacts.Length)
+        {
+            onAllArtifactCollected();
+        }
+    }
+
+    private void onAllArtifactCollected()
+    {
+        artifactGroupGameObject.SetActive(false);
+        silhouette.SetActive(false);
+        fullPainting.SetActive(true);
     }
 }
