@@ -1,7 +1,7 @@
-//-------------
-// Created by: John Tan
-// Description: Literally the user class.
-//------------
+//-----------------------------------------------------------------------------------------------------------------
+// Created By: John Tan
+// Description: User class
+//-----------------------------------------------------------------------------------------------------------------
 
 using System.Collections.Generic;
 using System.Threading.Tasks;

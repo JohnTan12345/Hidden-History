@@ -1,3 +1,8 @@
+//-----------------------------------------------------------------------------------------------------------------
+// Created By: Rayner Chua
+// Description: Users list
+//-----------------------------------------------------------------------------------------------------------------
+
 using System.Collections.Generic;
 
 public static class Users // Class to call for when u need the list of users
@@ -6,7 +11,7 @@ public static class Users // Class to call for when u need the list of users
     private static Dictionary<string, User> users = new Dictionary<string, User>{}; // Pairs userID to User
     public static bool DefaultUserLoaded = false; // Check if the default user is loaded
 
-    public static string UsernameToUserID(string username) // Get a UserID with a Username
+    public static string UsernameToUserID(string username) // Get a UserID with a username
     {
         return usernameTable[username];
     }

@@ -1,7 +1,7 @@
-//----------
-// Edited by: John Tan
-// Description: Added a way to toggle the dig button as well as only load needed prefabs
-//----------
+//-----------------------------------------------------------------------------------------------------------------
+// Edited By: John Tan
+// Description: Added in ways for the script to automatically add in onother prefab
+//-----------------------------------------------------------------------------------------------------------------
 
 using System;
 using System.Collections;
@@ -44,11 +44,11 @@ public class ImageTracker : MonoBehaviour
 
     IEnumerator SetupPrefabs()
     {
-        yield return new WaitUntil(() => Users.DefaultUserLoaded && Users.GetDefaultUser().DataLoaded);
+        yield return new WaitUntil(() => Users.DefaultUserLoaded && Users.GetDefaultUser().DataLoaded); // Wait until user is set up
         Debug.Log("User Found!");
         foreach (GameObject prefab in placeablePrefabs)
         {
-            if (!Users.GetDefaultUser().userData.collectedPieces.Contains(prefab.name))
+            if (!Users.GetDefaultUser().userData.collectedPieces.Contains(prefab.name)) // If user has not collected this artifact before
             {
                 GameObject newPrefab = Instantiate(prefab);
                 newPrefab.name = prefab.name;
@@ -57,7 +57,7 @@ public class ImageTracker : MonoBehaviour
                 spawnedObjects.Add(newPrefab, prefab);
                 newPrefab.AddComponent<ArtifactInfo>();
 
-                GameObject newDirtMoundPrefab = Instantiate(dirtMoundPrefab);
+                GameObject newDirtMoundPrefab = Instantiate(dirtMoundPrefab); // Add in dirt mound
                 newPrefab.GetComponent<ArtifactInfo>().dirtMound = newDirtMoundPrefab;
                 newDirtMoundPrefab.name = "Dirt Mound";
                 newDirtMoundPrefab.transform.parent = newPrefab.transform;
@@ -105,8 +105,6 @@ public class ImageTracker : MonoBehaviour
             else if (trackedImage.trackingState == TrackingState.Tracking)
             {
                 //Enable the associated content
-
-                // Make the dig button visible
                 try {
                     if(spawnedPrefabs[trackedImage.referenceImage.name].transform.parent != trackedImage.transform)
                     {
@@ -132,7 +130,7 @@ public class ImageTracker : MonoBehaviour
         }
     }
 
-    public void SetUIActive(bool value)
+    public void SetUIActive(bool value) // Enable the dig button and progress bar
     {
         DigButton.SetActive(value);
         ProgressBar.SetActive(value);

@@ -279,7 +279,6 @@ GameObject:
   m_Component:
   - component: {fileID: 14257980}
   - component: {fileID: 14257979}
-  - component: {fileID: 14257981}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -299,6 +298,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c234076ad1eda248bf349cc5221bc8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  testing: 0
   gameUIScript: {fileID: 2099970473}
   artifactPageManager: {fileID: 401617055}
 --- !u!4 &14257980
@@ -316,18 +316,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &14257981
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 14257978}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab4e9895e7c22e949857139ce51840a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &45622860
 GameObject:
   m_ObjectHideFlags: 0
@@ -1957,11 +1945,14 @@ MonoBehaviour:
   description: Created by Georgette Chen in c.1954. This rare group portrait captures
     Chen's insight to reading & rendering her sisters' characters.
   silhouette: {fileID: 1075776259}
+  artifactGroupGameObject: {fileID: 0}
   artifacts:
   - {fileID: 373941105}
   - {fileID: 783725239}
   - {fileID: 361299064}
   - {fileID: 366508093}
+  remainingArtifacts: []
+  fullPainting: {fileID: 0}
 --- !u!1 &315263444
 GameObject:
   m_ObjectHideFlags: 0
@@ -3581,11 +3572,14 @@ MonoBehaviour:
   description: Created by Georgette Chen in 1971. A craft of a distant echo of a
     different piece "Flower Composition with Smiling Buddha".
   silhouette: {fileID: 1833496922}
+  artifactGroupGameObject: {fileID: 0}
   artifacts:
   - {fileID: 2030352681}
   - {fileID: 1222051532}
   - {fileID: 590952517}
   - {fileID: 1342977153}
+  remainingArtifacts: []
+  fullPainting: {fileID: 0}
 --- !u!1 &581567684
 GameObject:
   m_ObjectHideFlags: 0
@@ -6959,6 +6953,8 @@ MonoBehaviour:
   gameManager: {fileID: 14257979}
   DigProgressBarObject: {fileID: 76217019}
   DigProgressBar: {fileID: 952510880}
+  foundPanel: {fileID: 0}
+  acknowledgeButton: {fileID: 0}
 --- !u!1 &1074165781
 GameObject:
   m_ObjectHideFlags: 0
@@ -7574,11 +7570,14 @@ MonoBehaviour:
   description: Created by Liu Kang in 1985. He travelled often within & outside SG.
     Painting the places he visited. Nepal being one of them.
   silhouette: {fileID: 765664067}
+  artifactGroupGameObject: {fileID: 0}
   artifacts:
   - {fileID: 1662265070}
   - {fileID: 1457014389}
   - {fileID: 1851695056}
   - {fileID: 1386076469}
+  remainingArtifacts: []
+  fullPainting: {fileID: 0}
 --- !u!1 &1163145056
 GameObject:
   m_ObjectHideFlags: 0
@@ -10151,8 +10150,11 @@ MonoBehaviour:
   description: Created by Georgette Chen in 1940-1945. This artwork emphasises on
     solidity & form with basic geometric structure of her visual references.
   silhouette: {fileID: 1029720610}
+  artifactGroupGameObject: {fileID: 0}
   artifacts:
   - {fileID: 100148237}
+  remainingArtifacts: []
+  fullPainting: {fileID: 0}
 --- !u!1 &1552740663
 GameObject:
   m_ObjectHideFlags: 0
@@ -10859,11 +10861,14 @@ MonoBehaviour:
   description: Created by Georgette Chen in 1961. Strong tropical lights allowed
     Chen to heighten colours uncommonly found in her would be earlier works.
   silhouette: {fileID: 194783095}
+  artifactGroupGameObject: {fileID: 0}
   artifacts:
   - {fileID: 1163145056}
   - {fileID: 798556795}
   - {fileID: 1373710450}
   - {fileID: 786090785}
+  remainingArtifacts: []
+  fullPainting: {fileID: 0}
 --- !u!1 &1711891864
 GameObject:
   m_ObjectHideFlags: 0
@@ -11127,11 +11132,14 @@ MonoBehaviour:
   description: Created by Lim Yew Kuan in 1955. His work focuses on implied moral
     themes & social commentary invoking emotions in the viewer.
   silhouette: {fileID: 2060933308}
+  artifactGroupGameObject: {fileID: 0}
   artifacts:
   - {fileID: 1846321501}
   - {fileID: 777920146}
   - {fileID: 1934286472}
   - {fileID: 1745396530}
+  remainingArtifacts: []
+  fullPainting: {fileID: 0}
 --- !u!1 &1727215188
 GameObject:
   m_ObjectHideFlags: 0
@@ -14183,6 +14191,7 @@ MonoBehaviour:
   ProgressBar: {fileID: 76217019}
   trackedObject: {fileID: 0}
   trackedImageManager: {fileID: 2091900677}
+  dirtMoundPrefab: {fileID: 0}
   placeablePrefabs: []
 --- !u!1 &2095133176
 GameObject:

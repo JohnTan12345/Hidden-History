@@ -1,3 +1,8 @@
+//-----------------------------------------------------------------------------------------------------------------
+// Created By: Rayner Chua
+// Description: Game Scene UI Script
+//-----------------------------------------------------------------------------------------------------------------
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -21,12 +26,6 @@ public class GameUIScript : MonoBehaviour
     [Header("Button UI")]
     [SerializeField]
     public List<ButtonRedirectory> buttons = new List<ButtonRedirectory>();
-    
-    public void Redirect(GameObject destinationPanel)
-    {
-        destinationPanel.SetActive(!destinationPanel.activeSelf);
-    }
-
     void Start() // Script Initialization
     {
         StartCoroutine(ScriptInitialization());
@@ -34,21 +33,28 @@ public class GameUIScript : MonoBehaviour
 
     private IEnumerator ScriptInitialization()
     {
-        yield return new WaitUntil(() => Users.DefaultUserLoaded);
-        ChangeMissionText(Users.GetDefaultUser().userData.currentMission);
-        foreach (ButtonRedirectory buttonRedirectory in buttons)
+        yield return new WaitUntil(() => Users.DefaultUserLoaded); // Yield coroutine to wait for default user to load
+        ChangeMissionText(Users.GetDefaultUser().userData.currentMission); // Set mission to current mission
+
+        foreach (ButtonRedirectory buttonRedirectory in buttons) // Add listeners to every button
         {
             buttonRedirectory.button.GetComponent<Button>().onClick.AddListener(() => Redirect(buttonRedirectory.destinationPanel));
         }
     }
-    public void ChangeMissionText(string newMission)
+
+    public void Redirect(GameObject destinationPanel) // Opening/Closing a panel
+    {
+        destinationPanel.SetActive(!destinationPanel.activeSelf);
+    }
+
+    public void ChangeMissionText(string newMission) // Change mission text with new mission
     {
         missionTextUI.text = missionLabel + ": " + newMission;
     }
 
-    public void ChangeMissionTrackerText(string newValue)
+    public void ChangeMissionTrackerText(string newValueWithMax) // Change mission tracker text with new value with max
     {
-        missionTrackerTextUI.text = missionTrackerLabel + ": " + newValue;
+        missionTrackerTextUI.text = missionTrackerLabel + ": " + newValueWithMax;
     }
 }
 
@@ -57,5 +63,5 @@ public class ButtonRedirectory
 {
     public GameObject button;
     [Tooltip("What the button will toggle")]
-    public GameObject destinationPanel;
+    public GameObject destinationPanel; // The panel that is being opened/closed
 }
