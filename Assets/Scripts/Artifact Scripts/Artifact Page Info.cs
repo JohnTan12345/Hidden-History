@@ -1,3 +1,8 @@
+//-----------------------------------------------------------------------------------------------------------------
+// Created By: Rayner Chua
+// Description: Artiface Page
+//-----------------------------------------------------------------------------------------------------------------
+
 using System.Collections;
 using System.Linq;
 using UnityEngine;
@@ -26,13 +31,13 @@ public class ArtifactPageInfo : MonoBehaviour
 
     private IEnumerator LoadArtifacts()
     {
-        yield return new WaitUntil(() => Users.DefaultUserLoaded);
+        yield return new WaitUntil(() => Users.DefaultUserLoaded); // Wait for default user to load
         User user = Users.GetDefaultUser();
         foreach (string collectedArtifact in user.userData.collectedPieces)
         {
             foreach (GameObject artifact in artifacts)
             {
-                if (collectedArtifact == artifact.name)
+                if (collectedArtifact == artifact.name) // If user collected the artifact already
                 {
                     collectedArtifacts.Append(artifact);
                     collected++;
@@ -50,7 +55,7 @@ public class ArtifactPageInfo : MonoBehaviour
         }
     }
 
-    private void onAllArtifactCollected()
+    private void onAllArtifactCollected() // Enable the painting and disable the artifacts
     {
         artifactGroupGameObject.SetActive(false);
         silhouette.SetActive(false);
