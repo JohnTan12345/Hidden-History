@@ -20,6 +20,8 @@ public class ArtifactPageManager : MonoBehaviour
     private TextMeshProUGUI artifactTitleText;
     [SerializeField]
     private TextMeshProUGUI artifactDescriptionText;
+    [SerializeField]
+    private GameObject paintingFrame;
 
     [Header("Buttons")]
     [SerializeField]
@@ -34,6 +36,8 @@ public class ArtifactPageManager : MonoBehaviour
     void Start()
     {
         totalPages = artifactPages.Length - 1;
+
+        print(totalPages);
 
         if (totalPages <= 0) // Check if there is artifact pages
         {
@@ -57,14 +61,15 @@ public class ArtifactPageManager : MonoBehaviour
     {
         artifactPages[pageNumber].SetActive(false); // Disable current artifact page
     }
-    public void NextPage()
+    private void NextPage()
     {
         artifactPages[pageNumber].SetActive(false); // Disable current artifact page
         pageNumber = pageNumber<totalPages?pageNumber+1:0; // Increase counter
+        print(pageNumber);
         GetPageInfo();
     }
 
-    public void PreviousPage()
+    private void PreviousPage()
     {
         artifactPages[pageNumber].SetActive(false); // Disable current artifact page
         pageNumber = pageNumber>0?pageNumber-1:totalPages; // Increase counter

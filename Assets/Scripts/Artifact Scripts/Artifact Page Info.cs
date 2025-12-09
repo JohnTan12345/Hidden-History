@@ -13,6 +13,7 @@ public class ArtifactPageInfo : MonoBehaviour
     public string title;
     public string description;
     public GameObject silhouette;
+    public Transform painting;
 
     [Header("Artifact Images")]
     [Tooltip("This refers to the gameobject that contains all the artifacts")]
@@ -22,7 +23,6 @@ public class ArtifactPageInfo : MonoBehaviour
     [Tooltip("The painting that is shown after collecting all artifacts")]
     [HideInInspector]
     public GameObject[] remainingArtifacts; // Future use
-    public GameObject fullPainting;
     private int collected = 0;
     void OnEnable()
     {
@@ -59,6 +59,6 @@ public class ArtifactPageInfo : MonoBehaviour
     {
         artifactGroupGameObject.SetActive(false);
         silhouette.SetActive(false);
-        fullPainting.SetActive(true);
+        painting.GetChild(0).gameObject.SetActive(true);
     }
 }
