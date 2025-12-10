@@ -17,9 +17,15 @@ public class GameManager : MonoBehaviour
     private GameUIScript gameUIScript;
     [SerializeField]
     private ArtifactPageManager artifactPageManager;
+    
+    [Header("UI")]
+    [SerializeField]
+    private GameObject gameCompletedUI;
     private int totalArtifactsCount = 0;
     private int currentArtifactsCount;
     public int CurrentArtifactsCount {get{return currentArtifactsCount;} set{currentArtifactsCount = value; OnArtifactCountChanged();}}
+
+    private List<string> allArtifactsName = new List<string>();
 
     void Start()
     {
@@ -33,28 +39,63 @@ public class GameManager : MonoBehaviour
     {
         gameUIScript.ChangeMissionTrackerText($"{currentArtifactsCount}/{totalArtifactsCount}");
     }
-    private IEnumerator LoadUserData()
+    public IEnumerator LoadUserData()
     {
         yield return new WaitUntil(() => Users.DefaultUserLoaded);
 
         User user = Users.GetDefaultUser();
+
         LoadArtifactValues(user);
-        
+        CheckCollectedArtifactValidity(user);
+
+        if (CurrentArtifactsCount >= totalArtifactsCount)
+        {
+            OnAllArtifactsCollected();
+        }
     }
 
     private void LoadArtifactValues(User user)
     {
+        allArtifactsName = new List<string>();
+        currentArtifactsCount = 0;
+        totalArtifactsCount = 0;
+
         List<string> CollectedArtifacts = user.userData.collectedPieces;
         currentArtifactsCount = CollectedArtifacts.Count();
 
         foreach(GameObject artifactPageObject in artifactPageManager.artifactPages)
         {
             ArtifactPageInfo artifactPageInfo = artifactPageObject.GetComponent<ArtifactPageInfo>();
-            totalArtifactsCount += artifactPageInfo.artifacts.Count();
+            GameObject[] artifactList = artifactPageInfo.artifacts;
+            totalArtifactsCount += artifactList.Count();
+            
+            foreach (GameObject artifact in artifactList)
+            {
+                Debug.Log(allArtifactsName);
+                Debug.Log(artifact);
+                Debug.Log(artifact.name);
+                allArtifactsName.Append(artifact.name);
+            }
 
             StartCoroutine(artifactPageInfo.LoadArtifacts());
         }
 
         OnArtifactCountChanged();
+    }
+
+    private void CheckCollectedArtifactValidity(User user)
+    {
+        foreach (string collectedArtifactName in user.userData.collectedPieces)
+        {
+            if (!allArtifactsName.Contains(collectedArtifactName))
+            {
+                user.userData.collectedPieces.Remove(collectedArtifactName);
+            }
+        }
+    }
+
+    private void OnAllArtifactsCollected()
+    {
+        gameCompletedUI.SetActive(true);
     }
 }

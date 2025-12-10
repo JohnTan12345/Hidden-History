@@ -6,12 +6,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class GameUIScript : MonoBehaviour
 {
+    [Header("Scripts")]
+    [SerializeField]
+    private GameManager gameManager;
     [Header("Mission UI")]
     [SerializeField]
     private TextMeshProUGUI missionTextUI;
@@ -22,6 +26,12 @@ public class GameUIScript : MonoBehaviour
     private TextMeshProUGUI missionTrackerTextUI;
     [Tooltip("What the label is going to look like. Example: \"Collected\" will show up as Collected: [Amount]")]
     public string missionTrackerLabel;
+
+    [Header("Game Completion UI")]
+    [SerializeField]
+    private Button restartButton;
+    [SerializeField]
+    private Button exitButton;
 
     [Header("Button UI")]
     [SerializeField]
@@ -56,6 +66,15 @@ public class GameUIScript : MonoBehaviour
     public void ChangeMissionTrackerText(string newValueWithMax) // Change mission tracker text with new value with max
     {
         missionTrackerTextUI.text = missionTrackerLabel + ": " + newValueWithMax;
+    }
+
+    public async void onUserRestart()
+    {
+        User user = Users.GetDefaultUser();
+        user.userData = new UserData();
+        
+        await user.SaveUserDataAsync();
+        StartCoroutine(gameManager.LoadUserData());
     }
 }
 
