@@ -38,13 +38,14 @@ public class GameUIScript : MonoBehaviour
 
         foreach (ButtonRedirectory buttonRedirectory in buttons) // Add listeners to every button
         {
-            buttonRedirectory.button.GetComponent<Button>().onClick.AddListener(() => Redirect(buttonRedirectory.destinationPanel));
+            buttonRedirectory.button.GetComponent<Button>().onClick.AddListener(() => TogglePage(buttonRedirectory.togglePanels));
         }
     }
 
-    public void Redirect(GameObject destinationPanel) // Opening/Closing a panel
+    public void TogglePage(GameObject[] togglePanels) // Opening/Closing a panel
     {
-        destinationPanel.SetActive(!destinationPanel.activeSelf);
+        foreach (GameObject togglePanel in togglePanels)
+        togglePanel.SetActive(!togglePanel.activeSelf);
     }
 
     public void ChangeMissionText(string newMission) // Change mission text with new mission
@@ -63,5 +64,5 @@ public class ButtonRedirectory
 {
     public GameObject button;
     [Tooltip("What the button will toggle")]
-    public GameObject destinationPanel; // The panel that is being opened/closed
+    public GameObject[] togglePanels; // The panel that is being opened/closed
 }

@@ -29,7 +29,7 @@ public class ArtifactPageInfo : MonoBehaviour
         StartCoroutine(LoadArtifacts());
     }
 
-    private IEnumerator LoadArtifacts()
+    public IEnumerator LoadArtifacts()
     {
         yield return new WaitUntil(() => Users.DefaultUserLoaded); // Wait for default user to load
         User user = Users.GetDefaultUser();

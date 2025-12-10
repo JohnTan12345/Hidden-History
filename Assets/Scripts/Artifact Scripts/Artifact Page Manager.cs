@@ -46,7 +46,10 @@ public class ArtifactPageManager : MonoBehaviour
 
         foreach (GameObject artifactPage in artifactPages) // Disable all artifact pages
         {
-            artifactPage.SetActive(false);
+            if (artifactPage != artifactPages[pageNumber])
+            {
+                artifactPage.SetActive(false);
+            }
         }
 
         // Append functions to buttons
@@ -55,7 +58,7 @@ public class ArtifactPageManager : MonoBehaviour
     }
     void OnEnable()
     {
-        artifactPages[pageNumber].SetActive(true); // Enable current artifact page
+        GetPageInfo(); // Enable current artifact page
     }
     void OnDisable()
     {
@@ -65,7 +68,6 @@ public class ArtifactPageManager : MonoBehaviour
     {
         artifactPages[pageNumber].SetActive(false); // Disable current artifact page
         pageNumber = pageNumber<totalPages?pageNumber+1:0; // Increase counter
-        print(pageNumber);
         GetPageInfo();
     }
 

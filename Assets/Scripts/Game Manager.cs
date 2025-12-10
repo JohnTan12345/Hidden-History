@@ -4,6 +4,7 @@
 //-----------------------------------------------------------------------------------------------------------------
 
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -11,9 +12,11 @@ public class GameManager : MonoBehaviour
 {
     [Header("Testing Parameters")]
     public bool testing;
-    [Header("Normal Parameters")]
-    public GameUIScript gameUIScript;
-    public ArtifactPageManager artifactPageManager;
+    [Header("Scripts")]
+    [SerializeField]
+    private GameUIScript gameUIScript;
+    [SerializeField]
+    private ArtifactPageManager artifactPageManager;
     private int totalArtifactsCount = 0;
     private int currentArtifactsCount;
     public int CurrentArtifactsCount {get{return currentArtifactsCount;} set{currentArtifactsCount = value; OnArtifactCountChanged();}}
@@ -24,21 +27,33 @@ public class GameManager : MonoBehaviour
         {
             new User().CreateNewUserAsync("TestUser");
         }
-        StartCoroutine(GetArtifactCollectedCount());
+        StartCoroutine(LoadUserData());
     }
     public void OnArtifactCountChanged() // When there is a change to current amount
     {
-        gameUIScript.ChangeMissionTrackerText(string.Format("{0}/{1}", currentArtifactsCount, totalArtifactsCount));
+        gameUIScript.ChangeMissionTrackerText($"{currentArtifactsCount}/{totalArtifactsCount}");
     }
-    public IEnumerator GetArtifactCollectedCount() // Count the number of artifacts inside user data and add to artifact count
+    private IEnumerator LoadUserData()
     {
         yield return new WaitUntil(() => Users.DefaultUserLoaded);
-        CurrentArtifactsCount = Users.GetDefaultUser().userData.collectedPieces.Count;
+
+        User user = Users.GetDefaultUser();
+        LoadArtifactValues(user);
         
-        foreach(GameObject artifactPage in artifactPageManager.artifactPages)
+    }
+
+    private void LoadArtifactValues(User user)
+    {
+        List<string> CollectedArtifacts = user.userData.collectedPieces;
+        currentArtifactsCount = CollectedArtifacts.Count();
+
+        foreach(GameObject artifactPageObject in artifactPageManager.artifactPages)
         {
-            totalArtifactsCount += artifactPage.GetComponent<ArtifactPageInfo>().artifacts.Count();
-        };
+            ArtifactPageInfo artifactPageInfo = artifactPageObject.GetComponent<ArtifactPageInfo>();
+            totalArtifactsCount += artifactPageInfo.artifacts.Count();
+
+            StartCoroutine(artifactPageInfo.LoadArtifacts());
+        }
 
         OnArtifactCountChanged();
     }
