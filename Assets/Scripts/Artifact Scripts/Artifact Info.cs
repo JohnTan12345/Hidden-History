@@ -11,6 +11,8 @@ public class ArtifactInfo : MonoBehaviour
 {
     public int digProgess = 0;
     public GameObject dirtMound;
+    public GameObject artifact;
+    public string trackedImageName;
 
     private CancellationTokenSource resetTimerCancelSource;
 

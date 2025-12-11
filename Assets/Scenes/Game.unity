@@ -301,6 +301,7 @@ MonoBehaviour:
   testing: 1
   gameUIScript: {fileID: 2099970473}
   artifactPageManager: {fileID: 401617055}
+  imageTracker: {fileID: 2091900678}
   gameCompletedUI: {fileID: 1837421701}
 --- !u!4 &14257980
 Transform:
@@ -311,7 +312,7 @@ Transform:
   m_GameObject: {fileID: 14257978}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 502.84073, y: 484.91235, z: -6.373064}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1606,6 +1607,10 @@ PrefabInstance:
         Painting the places he visited. Nepal being one of them.
       objectReference: {fileID: 0}
     - target: {fileID: 1340168887823609211, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
+      propertyPath: trackedImage
+      value: 
+      objectReference: {fileID: 2800000, guid: 31e253d1bf9e11844a42d7a4a80e90c7, type: 3}
+    - target: {fileID: 1340168887823609211, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
       propertyPath: artifacts.Array.size
       value: 4
       objectReference: {fileID: 0}
@@ -1625,6 +1630,38 @@ PrefabInstance:
       propertyPath: 'artifacts.Array.data[3]'
       value: 
       objectReference: {fileID: 1386076469}
+    - target: {fileID: 1340168887823609211, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
+      propertyPath: artifacts.Array.data[0].artifact
+      value: 
+      objectReference: {fileID: 1662265070}
+    - target: {fileID: 1340168887823609211, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
+      propertyPath: artifacts.Array.data[1].artifact
+      value: 
+      objectReference: {fileID: 1457014389}
+    - target: {fileID: 1340168887823609211, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
+      propertyPath: artifacts.Array.data[2].artifact
+      value: 
+      objectReference: {fileID: 1851695056}
+    - target: {fileID: 1340168887823609211, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
+      propertyPath: artifacts.Array.data[3].artifact
+      value: 
+      objectReference: {fileID: 1386076469}
+    - target: {fileID: 1340168887823609211, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
+      propertyPath: artifacts.Array.data[0].artifactPrefab
+      value: 
+      objectReference: {fileID: 1405674831317472770, guid: 252219b4be71d4848aeb8039917abacc, type: 3}
+    - target: {fileID: 1340168887823609211, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
+      propertyPath: artifacts.Array.data[1].artifactPrefab
+      value: 
+      objectReference: {fileID: 8103279145325706402, guid: 98812d99e5f907a41927f50d98b6c587, type: 3}
+    - target: {fileID: 1340168887823609211, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
+      propertyPath: artifacts.Array.data[2].artifactPrefab
+      value: 
+      objectReference: {fileID: 1205097203738037973, guid: 664cd69c7d33464449baee624a89284e, type: 3}
+    - target: {fileID: 1340168887823609211, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
+      propertyPath: artifacts.Array.data[3].artifactPrefab
+      value: 
+      objectReference: {fileID: 6307092390111578166, guid: 3985a09d6a384e042baef1a6334bb574, type: 3}
     - target: {fileID: 3733834169701795872, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
       propertyPath: m_Name
       value: Page 3
@@ -4534,6 +4571,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1340168887823609211, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
+      propertyPath: trackedImage
+      value: 
+      objectReference: {fileID: 2800000, guid: 6369f640ffca1474cafc8dd4cee8e739, type: 3}
+    - target: {fileID: 1340168887823609211, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
       propertyPath: artifacts.Array.size
       value: 4
       objectReference: {fileID: 0}
@@ -4557,6 +4598,38 @@ PrefabInstance:
       propertyPath: 'artifacts.Array.data[3]'
       value: 
       objectReference: {fileID: 366508093}
+    - target: {fileID: 1340168887823609211, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
+      propertyPath: artifacts.Array.data[0].artifact
+      value: 
+      objectReference: {fileID: 373941105}
+    - target: {fileID: 1340168887823609211, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
+      propertyPath: artifacts.Array.data[1].artifact
+      value: 
+      objectReference: {fileID: 783725239}
+    - target: {fileID: 1340168887823609211, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
+      propertyPath: artifacts.Array.data[2].artifact
+      value: 
+      objectReference: {fileID: 361299064}
+    - target: {fileID: 1340168887823609211, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
+      propertyPath: artifacts.Array.data[3].artifact
+      value: 
+      objectReference: {fileID: 366508093}
+    - target: {fileID: 1340168887823609211, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
+      propertyPath: artifacts.Array.data[0].artifactPrefab
+      value: 
+      objectReference: {fileID: 1405674831317472770, guid: 252219b4be71d4848aeb8039917abacc, type: 3}
+    - target: {fileID: 1340168887823609211, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
+      propertyPath: artifacts.Array.data[1].artifactPrefab
+      value: 
+      objectReference: {fileID: 8103279145325706402, guid: 98812d99e5f907a41927f50d98b6c587, type: 3}
+    - target: {fileID: 1340168887823609211, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
+      propertyPath: artifacts.Array.data[2].artifactPrefab
+      value: 
+      objectReference: {fileID: 1205097203738037973, guid: 664cd69c7d33464449baee624a89284e, type: 3}
+    - target: {fileID: 1340168887823609211, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
+      propertyPath: artifacts.Array.data[3].artifactPrefab
+      value: 
+      objectReference: {fileID: 6307092390111578166, guid: 3985a09d6a384e042baef1a6334bb574, type: 3}
     - target: {fileID: 3733834169701795872, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
       propertyPath: m_Name
       value: Page 2
@@ -6191,6 +6264,10 @@ PrefabInstance:
         & form with basic geometric structure of her visual references.
       objectReference: {fileID: 0}
     - target: {fileID: 1340168887823609211, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
+      propertyPath: trackedImage
+      value: 
+      objectReference: {fileID: 2800000, guid: 758a7b7204fdf564caecbc3bb7a05436, type: 3}
+    - target: {fileID: 1340168887823609211, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
       propertyPath: artifacts.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -6198,6 +6275,14 @@ PrefabInstance:
       propertyPath: 'artifacts.Array.data[0]'
       value: 
       objectReference: {fileID: 100148237}
+    - target: {fileID: 1340168887823609211, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
+      propertyPath: artifacts.Array.data[0].artifact
+      value: 
+      objectReference: {fileID: 100148237}
+    - target: {fileID: 1340168887823609211, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
+      propertyPath: artifacts.Array.data[0].artifactPrefab
+      value: 
+      objectReference: {fileID: 542999229768518614, guid: 195f97aa6fdcd0144842b928d39b33bf, type: 3}
     - target: {fileID: 3733834169701795872, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
       propertyPath: m_Name
       value: Secret Page
@@ -7179,6 +7264,10 @@ PrefabInstance:
         to heighten colours uncommonly found in her would be earlier works.
       objectReference: {fileID: 0}
     - target: {fileID: 1340168887823609211, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
+      propertyPath: trackedImage
+      value: 
+      objectReference: {fileID: 2800000, guid: f65479eda277ba140bd735e12a4475af, type: 3}
+    - target: {fileID: 1340168887823609211, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
       propertyPath: artifacts.Array.size
       value: 4
       objectReference: {fileID: 0}
@@ -7198,6 +7287,38 @@ PrefabInstance:
       propertyPath: 'artifacts.Array.data[3]'
       value: 
       objectReference: {fileID: 786090785}
+    - target: {fileID: 1340168887823609211, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
+      propertyPath: artifacts.Array.data[0].artifact
+      value: 
+      objectReference: {fileID: 1163145056}
+    - target: {fileID: 1340168887823609211, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
+      propertyPath: artifacts.Array.data[1].artifact
+      value: 
+      objectReference: {fileID: 798556795}
+    - target: {fileID: 1340168887823609211, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
+      propertyPath: artifacts.Array.data[2].artifact
+      value: 
+      objectReference: {fileID: 1373710450}
+    - target: {fileID: 1340168887823609211, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
+      propertyPath: artifacts.Array.data[3].artifact
+      value: 
+      objectReference: {fileID: 786090785}
+    - target: {fileID: 1340168887823609211, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
+      propertyPath: artifacts.Array.data[0].artifactPrefab
+      value: 
+      objectReference: {fileID: 1405674831317472770, guid: 252219b4be71d4848aeb8039917abacc, type: 3}
+    - target: {fileID: 1340168887823609211, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
+      propertyPath: artifacts.Array.data[1].artifactPrefab
+      value: 
+      objectReference: {fileID: 8103279145325706402, guid: 98812d99e5f907a41927f50d98b6c587, type: 3}
+    - target: {fileID: 1340168887823609211, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
+      propertyPath: artifacts.Array.data[2].artifactPrefab
+      value: 
+      objectReference: {fileID: 1205097203738037973, guid: 664cd69c7d33464449baee624a89284e, type: 3}
+    - target: {fileID: 1340168887823609211, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
+      propertyPath: artifacts.Array.data[3].artifactPrefab
+      value: 
+      objectReference: {fileID: 6307092390111578166, guid: 3985a09d6a384e042baef1a6334bb574, type: 3}
     - target: {fileID: 3733834169701795872, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
       propertyPath: m_Name
       value: Page 4
@@ -7687,7 +7808,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1187071900
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7957,6 +8078,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1340168887823609211, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
+      propertyPath: trackedImage
+      value: 
+      objectReference: {fileID: 2800000, guid: dedead086c2a9dc4dbf2f2b72ec64058, type: 3}
+    - target: {fileID: 1340168887823609211, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
       propertyPath: artifacts.Array.size
       value: 4
       objectReference: {fileID: 0}
@@ -7980,6 +8105,38 @@ PrefabInstance:
       propertyPath: 'artifacts.Array.data[3]'
       value: 
       objectReference: {fileID: 1342977153}
+    - target: {fileID: 1340168887823609211, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
+      propertyPath: artifacts.Array.data[0].artifact
+      value: 
+      objectReference: {fileID: 2030352681}
+    - target: {fileID: 1340168887823609211, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
+      propertyPath: artifacts.Array.data[1].artifact
+      value: 
+      objectReference: {fileID: 1222051532}
+    - target: {fileID: 1340168887823609211, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
+      propertyPath: artifacts.Array.data[2].artifact
+      value: 
+      objectReference: {fileID: 590952517}
+    - target: {fileID: 1340168887823609211, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
+      propertyPath: artifacts.Array.data[3].artifact
+      value: 
+      objectReference: {fileID: 1342977153}
+    - target: {fileID: 1340168887823609211, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
+      propertyPath: artifacts.Array.data[0].artifactPrefab
+      value: 
+      objectReference: {fileID: 1405674831317472770, guid: 252219b4be71d4848aeb8039917abacc, type: 3}
+    - target: {fileID: 1340168887823609211, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
+      propertyPath: artifacts.Array.data[1].artifactPrefab
+      value: 
+      objectReference: {fileID: 8103279145325706402, guid: 98812d99e5f907a41927f50d98b6c587, type: 3}
+    - target: {fileID: 1340168887823609211, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
+      propertyPath: artifacts.Array.data[2].artifactPrefab
+      value: 
+      objectReference: {fileID: 1205097203738037973, guid: 664cd69c7d33464449baee624a89284e, type: 3}
+    - target: {fileID: 1340168887823609211, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
+      propertyPath: artifacts.Array.data[3].artifactPrefab
+      value: 
+      objectReference: {fileID: 6307092390111578166, guid: 3985a09d6a384e042baef1a6334bb574, type: 3}
     - target: {fileID: 3733834169701795872, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
       propertyPath: m_Name
       value: Page 1
@@ -11422,6 +11579,10 @@ PrefabInstance:
         & social commentary invoking emotions in the viewer.
       objectReference: {fileID: 0}
     - target: {fileID: 1340168887823609211, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
+      propertyPath: trackedImage
+      value: 
+      objectReference: {fileID: 2800000, guid: cd8c578f14bf3a14e93ae7a911840973, type: 3}
+    - target: {fileID: 1340168887823609211, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
       propertyPath: artifacts.Array.size
       value: 4
       objectReference: {fileID: 0}
@@ -11441,6 +11602,38 @@ PrefabInstance:
       propertyPath: 'artifacts.Array.data[3]'
       value: 
       objectReference: {fileID: 1745396530}
+    - target: {fileID: 1340168887823609211, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
+      propertyPath: artifacts.Array.data[0].artifact
+      value: 
+      objectReference: {fileID: 1846321501}
+    - target: {fileID: 1340168887823609211, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
+      propertyPath: artifacts.Array.data[1].artifact
+      value: 
+      objectReference: {fileID: 777920146}
+    - target: {fileID: 1340168887823609211, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
+      propertyPath: artifacts.Array.data[2].artifact
+      value: 
+      objectReference: {fileID: 1934286472}
+    - target: {fileID: 1340168887823609211, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
+      propertyPath: artifacts.Array.data[3].artifact
+      value: 
+      objectReference: {fileID: 1745396530}
+    - target: {fileID: 1340168887823609211, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
+      propertyPath: artifacts.Array.data[0].artifactPrefab
+      value: 
+      objectReference: {fileID: 1405674831317472770, guid: 252219b4be71d4848aeb8039917abacc, type: 3}
+    - target: {fileID: 1340168887823609211, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
+      propertyPath: artifacts.Array.data[1].artifactPrefab
+      value: 
+      objectReference: {fileID: 8103279145325706402, guid: 98812d99e5f907a41927f50d98b6c587, type: 3}
+    - target: {fileID: 1340168887823609211, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
+      propertyPath: artifacts.Array.data[2].artifactPrefab
+      value: 
+      objectReference: {fileID: 1205097203738037973, guid: 664cd69c7d33464449baee624a89284e, type: 3}
+    - target: {fileID: 1340168887823609211, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
+      propertyPath: artifacts.Array.data[3].artifactPrefab
+      value: 
+      objectReference: {fileID: 6307092390111578166, guid: 3985a09d6a384e042baef1a6334bb574, type: 3}
     - target: {fileID: 3733834169701795872, guid: 528d4648cf3a0de4daf142d253844970, type: 3}
       propertyPath: m_Name
       value: Page 5
@@ -13744,8 +13937,7 @@ MonoBehaviour:
   trackedObject: {fileID: 0}
   trackedImageManager: {fileID: 2091900677}
   dirtMoundPrefab: {fileID: 7236055711021040424, guid: 474e843b5121225468c0ee134554238c, type: 3}
-  placeablePrefabs:
-  - {fileID: 3827121810882456848, guid: 154838e313b6e8a4881926e4277b95c4, type: 3}
+  previousTrackedImage: 
 --- !u!1 &2095133176
 GameObject:
   m_ObjectHideFlags: 0
@@ -14087,8 +14279,8 @@ MonoBehaviour:
   missionLabel: Mission Objective
   missionTrackerTextUI: {fileID: 149612383}
   missionTrackerLabel: Artifacts Collected
-  restartButton: {fileID: 0}
-  exitButton: {fileID: 0}
+  restartButton: {fileID: 1715255073}
+  exitButton: {fileID: 1180830084}
   buttons:
   - button: {fileID: 180173148}
     togglePanels:

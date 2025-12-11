@@ -18,22 +18,62 @@ MonoBehaviour:
     m_Storage: []
   m_Images:
   - m_SerializedGuid:
-      m_GuidLow: 4936763712440053887
-      m_GuidHigh: 836715311454884264
-    m_SerializedTextureGuid:
-      m_GuidLow: 9846026669466752422
-      m_GuidHigh: 16771948006793291643
-    m_Size: {x: 0.1, y: 0.1}
-    m_SpecifySize: 1
-    m_Name: marker
-    m_Texture: {fileID: 0}
-  - m_SerializedGuid:
       m_GuidLow: 4841474532566461126
       m_GuidHigh: 11654716739121599156
     m_SerializedTextureGuid:
       m_GuidLow: 11368330290773536008
       m_GuidHigh: 6359300577804088027
-    m_Size: {x: 0.09841689, y: 0.1}
+    m_Size: {x: 0.1, y: 0.10160858}
     m_SpecifySize: 1
     m_Name: xmarksand
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 5269504787373231822
+      m_GuidHigh: 14837762218188965022
+    m_SerializedTextureGuid:
+      m_GuidLow: 17682263523608656754
+      m_GuidHigh: 3914930684933500106
+    m_Size: {x: 0.1, y: 0.0981383}
+    m_SpecifySize: 1
+    m_Name: xmarkblue
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 5026355197897230287
+      m_GuidHigh: 2667602610435828148
+    m_SerializedTextureGuid:
+      m_GuidLow: 4184992767753869199
+      m_GuidHigh: 8289301800551922409
+    m_Size: {x: 0.1, y: 0.10118344}
+    m_SpecifySize: 1
+    m_Name: xmarkLblue
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 5600861175580361502
+      m_GuidHigh: 18011940079031750790
+    m_SerializedTextureGuid:
+      m_GuidLow: 13408520626706348525
+      m_GuidHigh: 12643086479870252811
+    m_Size: {x: 0.1, y: 0.09973822}
+    m_SpecifySize: 1
+    m_Name: xmarkorange
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 5155408212275772840
+      m_GuidHigh: 9450418315531384744
+    m_SerializedTextureGuid:
+      m_GuidLow: 1262344481733235665
+      m_GuidHigh: 14380009727676858954
+    m_Size: {x: 0.1, y: 0.099208444}
+    m_SpecifySize: 1
+    m_Name: xmarkpink
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 5511902763619907201
+      m_GuidHigh: 15085673441974494351
+    m_SerializedTextureGuid:
+      m_GuidLow: 1474084222773360192
+      m_GuidHigh: 4172559554809035978
+    m_Size: {x: 0.1, y: 0.09816754}
+    m_SpecifySize: 1
+    m_Name: xmarkyellow
     m_Texture: {fileID: 0}

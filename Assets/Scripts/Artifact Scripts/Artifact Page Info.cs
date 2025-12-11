@@ -3,10 +3,12 @@
 // Description: Artiface Page
 //-----------------------------------------------------------------------------------------------------------------
 
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-[System.Serializable]
+[Serializable]
 public class ArtifactPageInfo : MonoBehaviour
 {
     [Header("Artifact Information")]
@@ -14,16 +16,19 @@ public class ArtifactPageInfo : MonoBehaviour
     public string description;
     public GameObject silhouette;
     public Transform painting;
+    public Texture2D trackedImage;
 
     [Header("Artifact Images")]
     [Tooltip("This refers to the gameobject that contains all the artifacts")]
     public GameObject artifactGroupGameObject;
-    public GameObject[] artifacts;
-    private GameObject[] collectedArtifacts;
+    public Artifact[] artifacts;
+    private List<GameObject> collectedArtifacts;
     [Tooltip("The painting that is shown after collecting all artifacts")]
     [HideInInspector]
-    public GameObject[] remainingArtifacts; // Future use
     private int collected = 0;
+    
+    [HideInInspector]
+    public bool artifactsLoaded = false;
     void OnEnable()
     {
         StartCoroutine(LoadArtifacts());
@@ -31,21 +36,22 @@ public class ArtifactPageInfo : MonoBehaviour
 
     public IEnumerator LoadArtifacts()
     {
+        collectedArtifacts = new List<GameObject>();
         yield return new WaitUntil(() => Users.DefaultUserLoaded); // Wait for default user to load
         User user = Users.GetDefaultUser();
-        foreach (string collectedArtifact in user.userData.collectedPieces)
+        foreach (Artifact artifact in artifacts)
         {
-            foreach (GameObject artifact in artifacts)
+            Debug.Log("searching");
+            if (user.userData.collectedPieces.Contains(artifact.artifact.name)) // If user collected the artifact already
             {
-                if (collectedArtifact == artifact.name) // If user collected the artifact already
-                {
-                    collectedArtifacts.Append(artifact);
-                    collected++;
-                }
-                else
-                {
-                    remainingArtifacts.Append(artifact);
-                }
+                Debug.Log("hit");
+                collectedArtifacts.Add(artifact.artifact);
+                artifact.artifact.SetActive(true);
+                collected++;
+            }
+            else
+            {
+                artifact.artifact.SetActive(false);
             }
         }
 
@@ -61,4 +67,11 @@ public class ArtifactPageInfo : MonoBehaviour
         silhouette.SetActive(false);
         painting.GetChild(0).gameObject.SetActive(true);
     }
+}
+
+[Serializable]
+public class Artifact
+{
+    public GameObject artifact;
+    public GameObject artifactPrefab;
 }

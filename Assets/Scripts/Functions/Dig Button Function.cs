@@ -55,14 +55,19 @@ public class DigButtonFunction : MonoBehaviour
 
         artifactInfo.digProgess++;
 
-        if (artifactInfo.digProgess >= 5) // If player pressed the button 5 times
+        if (artifactInfo.digProgess == 5) // If player pressed the button 5 times
         {
-            Users.GetDefaultUser().userData.collectedPieces.Add(trackedObject.name); // Add artifact to player collected artifacts
+            Users.GetDefaultUser().userData.collectedPieces.Add(artifactInfo.artifact.name); // Add artifact to player collected artifacts
             foundTrackedObject = trackedObject;
             gameManager.CurrentArtifactsCount++;
             Users.GetDefaultUser().SaveUserDataAsync();
             Destroy(trackedObject.GetComponent<ArtifactInfo>().dirtMound);
+            imageTracker.spawnedPrefabs[artifactInfo.trackedImageName].Remove(trackedObject);
             foundPanel.SetActive(true);
+        }
+        else if (artifactInfo.digProgess > 5)
+        {
+            return;
         }
         UI_Update();
     }

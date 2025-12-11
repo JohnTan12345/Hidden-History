@@ -115,9 +115,10 @@ MonoBehaviour:
   description: 
   silhouette: {fileID: 1123561437530807096}
   painting: {fileID: 442937318529167574}
+  trackedImage: {fileID: 0}
   artifactGroupGameObject: {fileID: 7158720746171444780}
   artifacts: []
-  remainingArtifacts: []
+  artifactsLoaded: 0
 --- !u!1 &7125678324567309855
 GameObject:
   m_ObjectHideFlags: 0
@@ -169,7 +170,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3992211282405833391
 RectTransform:
   m_ObjectHideFlags: 0

@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
     private GameUIScript gameUIScript;
     [SerializeField]
     private ArtifactPageManager artifactPageManager;
+    [SerializeField]
+    private ImageTracker imageTracker;
     
     [Header("UI")]
     [SerializeField]
@@ -66,18 +68,30 @@ public class GameManager : MonoBehaviour
         foreach(GameObject artifactPageObject in artifactPageManager.artifactPages)
         {
             ArtifactPageInfo artifactPageInfo = artifactPageObject.GetComponent<ArtifactPageInfo>();
-            GameObject[] artifactList = artifactPageInfo.artifacts;
+            Artifact[] artifactList = artifactPageInfo.artifacts;
             totalArtifactsCount += artifactList.Count();
+            List<Artifact> remainingArtifacts = new List<Artifact>();
             
-            foreach (GameObject artifact in artifactList)
+            foreach (Artifact artifact in artifactList)
             {
-                Debug.Log(allArtifactsName);
-                Debug.Log(artifact);
-                Debug.Log(artifact.name);
-                allArtifactsName.Append(artifact.name);
-            }
+                GameObject artifactObject = artifact.artifact;
+                allArtifactsName.Append(artifactObject.name);
 
-            StartCoroutine(artifactPageInfo.LoadArtifacts());
+                
+
+                if (!user.userData.collectedPieces.Contains(artifact.artifact.name))
+                {
+                    remainingArtifacts.Add(artifact);
+                }
+            }
+            artifactPageInfo.LoadArtifacts();
+            
+            bool lastArtifactPage = false;
+            if (artifactPageObject == artifactPageManager.artifactPages.Last())
+            {
+                lastArtifactPage = true;
+            }
+            imageTracker.SetupPrefab(remainingArtifacts, artifactPageInfo.trackedImage.name, lastArtifactPage);
         }
 
         OnArtifactCountChanged();

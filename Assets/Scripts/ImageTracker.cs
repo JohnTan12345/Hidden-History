@@ -4,8 +4,8 @@
 //-----------------------------------------------------------------------------------------------------------------
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
@@ -22,49 +22,56 @@ public class ImageTracker : MonoBehaviour
 
     [SerializeField]
     private GameObject dirtMoundPrefab;
-    [SerializeField]
-    private GameObject[] placeablePrefabs;
 
     private bool PrefabsLoaded = false;
 
-    private Dictionary<string, GameObject> spawnedPrefabs = new Dictionary<string, GameObject>();
+    private GameObject previousSpawnedPrefab;
+    public string previousTrackedImage;
+    private GameObject spawnedPrefab;
+    public Dictionary<string, List<GameObject>> spawnedPrefabs = new Dictionary<string, List<GameObject>>();
 
     private Dictionary<GameObject, GameObject> spawnedObjects = new Dictionary<GameObject, GameObject>();
-
-    private string[] someArray = new string[]{"Image1", "Image2", "Image3"};
 
     private void Start()
     {
         if (trackedImageManager != null)
         {
             trackedImageManager.trackablesChanged.AddListener(OnImageChanged);
-            StartCoroutine(SetupPrefabs());
         }
     }
 
-    IEnumerator SetupPrefabs()
+    public void SetupPrefab(List<Artifact> artifacts, string trackedImageName, bool finalPrefabList = false)
     {
-        yield return new WaitUntil(() => Users.DefaultUserLoaded && Users.GetDefaultUser().DataLoaded); // Wait until user is set up
-        Debug.Log("User Found!");
-        foreach (GameObject prefab in placeablePrefabs)
-        {
-            if (!Users.GetDefaultUser().userData.collectedPieces.Contains(prefab.name)) // If user has not collected this artifact before
+        List<GameObject> prefabs = new List<GameObject>();
+        Debug.Log("Setting up Prefabs");
+        try{
+            foreach(Artifact artifact in artifacts) 
             {
+                GameObject prefab = artifact.artifactPrefab;
+                Debug.Log("Found a prefab");
+
                 GameObject newPrefab = Instantiate(prefab);
                 newPrefab.name = prefab.name;
                 newPrefab.SetActive(false);
-                spawnedPrefabs.Add(prefab.name, newPrefab);
+                prefabs.Add(newPrefab);
                 spawnedObjects.Add(newPrefab, prefab);
-                newPrefab.AddComponent<ArtifactInfo>();
+                ArtifactInfo newArtifactInfo = newPrefab.AddComponent<ArtifactInfo>();
+                newArtifactInfo.artifact = artifact.artifact;
+                newArtifactInfo.trackedImageName = trackedImageName;
 
                 GameObject newDirtMoundPrefab = Instantiate(dirtMoundPrefab); // Add in dirt mound
-                newPrefab.GetComponent<ArtifactInfo>().dirtMound = newDirtMoundPrefab;
+                newArtifactInfo.dirtMound = newDirtMoundPrefab;
                 newDirtMoundPrefab.name = "Dirt Mound";
                 newDirtMoundPrefab.transform.parent = newPrefab.transform;
                 newDirtMoundPrefab.transform.position = new Vector3(0,0,0);
             }
+        } 
+        catch
+        {
+            Debug.Log("There is no artifacts to get or something went wrong");
         }
-        PrefabsLoaded = true;
+        spawnedPrefabs.Add(trackedImageName, prefabs);
+        PrefabsLoaded = finalPrefabList;
     }
 
     void OnImageChanged(ARTrackablesChangedEventArgs<ARTrackedImage> eventArgs)
@@ -93,28 +100,40 @@ public class ImageTracker : MonoBehaviour
             {
                 //Disable the associated content
                 try {
-                    spawnedPrefabs[trackedImage.referenceImage.name].transform.SetParent(null);
-                    spawnedPrefabs[trackedImage.referenceImage.name].SetActive(false);
+                    spawnedPrefab.transform.SetParent(null);
+                    spawnedPrefab.SetActive(false);
                 } catch (MissingReferenceException)
                 {
                     print("Object has been deleted");
                 }
                 SetUIActive(false);
+                spawnedPrefab = null;
                 trackedObject = null;
             }
             else if (trackedImage.trackingState == TrackingState.Tracking)
             {
                 //Enable the associated content
                 try {
-                    if(spawnedPrefabs[trackedImage.referenceImage.name].transform.parent != trackedImage.transform)
+                    if (trackedImage.referenceImage.name != previousTrackedImage || previousSpawnedPrefab == null)
                     {
-                        Debug.Log("Enabling associated content: " + spawnedPrefabs[trackedImage.referenceImage.name].name);
-                        spawnedPrefabs[trackedImage.referenceImage.name].transform.SetParent(trackedImage.transform);
-                        spawnedPrefabs[trackedImage.referenceImage.name].transform.localPosition = spawnedObjects[spawnedPrefabs[trackedImage.referenceImage.name]].transform.localPosition;
-                        spawnedPrefabs[trackedImage.referenceImage.name].transform.localRotation = spawnedObjects[spawnedPrefabs[trackedImage.referenceImage.name]].transform.localRotation;
+                        spawnedPrefab = spawnedPrefabs[trackedImage.referenceImage.name][UnityEngine.Random.Range(0, spawnedPrefabs[trackedImage.referenceImage.name].Count)];
+                        previousSpawnedPrefab = spawnedPrefab;
+                        previousTrackedImage = trackedImage.referenceImage.name;
+                    }
+                    else
+                    {
+                        spawnedPrefab = previousSpawnedPrefab;
+                    }
+                    
+                    if(spawnedPrefab.transform.parent != trackedImage.transform)
+                    {
+                        Debug.Log("Enabling associated content: " + spawnedPrefab.name);
+                        spawnedPrefab.transform.SetParent(trackedImage.transform);
+                        spawnedPrefab.transform.localPosition = spawnedObjects[spawnedPrefab].transform.localPosition;
+                        spawnedPrefab.transform.localRotation = spawnedObjects[spawnedPrefab].transform.localRotation;
 
-                        spawnedPrefabs[trackedImage.referenceImage.name].SetActive(true);
-                        trackedObject = spawnedPrefabs[trackedImage.referenceImage.name];
+                        spawnedPrefab.SetActive(true);
+                        trackedObject = spawnedPrefab;
                         OnTrackedObjectChanged?.Invoke(trackedObject);
                         SetUIActive(true);
                     }
