@@ -63,6 +63,7 @@ public class DigButtonFunction : MonoBehaviour
             Users.GetDefaultUser().SaveUserDataAsync();
             Destroy(trackedObject.GetComponent<ArtifactInfo>().dirtMound);
             imageTracker.spawnedPrefabs[artifactInfo.trackedImageName].Remove(trackedObject);
+
             foundPanel.SetActive(true);
         }
         else if (artifactInfo.digProgess > 5)

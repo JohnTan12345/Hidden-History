@@ -74,6 +74,7 @@ public class GameUIScript : MonoBehaviour
         user.userData = new UserData();
         
         await user.SaveUserDataAsync();
+        gameManager.artifactsLoaded = false;
         StartCoroutine(gameManager.LoadUserData());
     }
 }

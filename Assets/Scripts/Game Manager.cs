@@ -27,6 +27,9 @@ public class GameManager : MonoBehaviour
     private int currentArtifactsCount;
     public int CurrentArtifactsCount {get{return currentArtifactsCount;} set{currentArtifactsCount = value; OnArtifactCountChanged();}}
 
+    public bool artifactsLoaded = false;
+    private List<GameObject> paintingsList = new List<GameObject>();
+    public List<GameObject> completedPaintingsList = new List<GameObject>();
     private List<string> allArtifactsName = new List<string>();
 
     void Start()
@@ -36,6 +39,13 @@ public class GameManager : MonoBehaviour
             new User().CreateNewUserAsync("TestUser");
         }
         StartCoroutine(LoadUserData());
+    }
+    void FixedUpdate()
+    {
+        if (artifactsLoaded && CurrentArtifactsCount >= totalArtifactsCount)
+        {
+            OnAllArtifactsCollected();
+        }
     }
     public void OnArtifactCountChanged() // When there is a change to current amount
     {
@@ -49,18 +59,18 @@ public class GameManager : MonoBehaviour
 
         LoadArtifactValues(user);
         CheckCollectedArtifactValidity(user);
-
-        if (CurrentArtifactsCount >= totalArtifactsCount)
-        {
-            OnAllArtifactsCollected();
-        }
     }
 
     private void LoadArtifactValues(User user)
     {
+        paintingsList = new List<GameObject>();
+        completedPaintingsList = new List<GameObject>();
+        artifactsLoaded = false;
         allArtifactsName = new List<string>();
         currentArtifactsCount = 0;
         totalArtifactsCount = 0;
+        imageTracker.spawnedObjects = new Dictionary<GameObject, GameObject>();
+        imageTracker.spawnedPrefabs = new Dictionary<string, List<GameObject>>();
 
         List<string> CollectedArtifacts = user.userData.collectedPieces;
         currentArtifactsCount = CollectedArtifacts.Count();
@@ -76,6 +86,11 @@ public class GameManager : MonoBehaviour
             Artifact[] artifactList = artifactPageInfo.artifacts;
             totalArtifactsCount += artifactList.Count();
             List<Artifact> remainingArtifacts = new List<Artifact>();
+
+            if (!paintingsList.Contains(artifactPageObject))
+            {
+                paintingsList.Add(artifactPageObject);
+            }
             
             foreach (Artifact artifact in artifactList)
             {
@@ -87,6 +102,12 @@ public class GameManager : MonoBehaviour
                     remainingArtifacts.Add(artifact);
                 }
             }
+
+            if (remainingArtifacts.Count() == 0 && !completedPaintingsList.Contains(artifactPageObject))
+            {
+                completedPaintingsList.Add(artifactPageObject);
+            }
+
             artifactPageInfo.LoadArtifacts();
             
             bool lastArtifactPage = false;
@@ -98,6 +119,7 @@ public class GameManager : MonoBehaviour
         }
 
         OnArtifactCountChanged();
+        artifactsLoaded = true;
     }
 
     private void CheckCollectedArtifactValidity(User user)

@@ -8,6 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 [Serializable]
 public class ArtifactPageInfo : MonoBehaviour
 {
@@ -26,9 +27,9 @@ public class ArtifactPageInfo : MonoBehaviour
     [Tooltip("The painting that is shown after collecting all artifacts")]
     [HideInInspector]
     private int collected = 0;
-
+    [HideInInspector]
     public GameObject paintingFrame;
-    
+
     [HideInInspector]
     public bool artifactsLoaded = false;
     void OnEnable()
@@ -38,7 +39,10 @@ public class ArtifactPageInfo : MonoBehaviour
 
     public IEnumerator LoadArtifacts()
     {
-        Debug.Log(paintingFrame);
+        paintingFrame.SetActive(false);
+        silhouette.SetActive(true);
+        artifactGroupGameObject.SetActive(true);
+        painting.GetChild(0).gameObject.SetActive(false);
         collectedArtifacts = new List<GameObject>();
         collected = 0;
         yield return new WaitUntil(() => Users.DefaultUserLoaded); // Wait for default user to load
@@ -51,12 +55,12 @@ public class ArtifactPageInfo : MonoBehaviour
             {
                 Debug.Log("hit");
                 collectedArtifacts.Add(artifact.artifact);
-                artifact.artifact.SetActive(true);
+                artifact.artifact.GetComponent<Image>().color = new Color(255, 255, 255, 255);
                 collected++;
             }
             else
             {
-                artifact.artifact.SetActive(false);
+                artifact.artifact.GetComponent<Image>().color = new Color(255, 255, 255, 0);
             }
         }
 

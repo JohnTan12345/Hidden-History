@@ -30,7 +30,7 @@ public class ImageTracker : MonoBehaviour
     private GameObject spawnedPrefab;
     public Dictionary<string, List<GameObject>> spawnedPrefabs = new Dictionary<string, List<GameObject>>();
 
-    private Dictionary<GameObject, GameObject> spawnedObjects = new Dictionary<GameObject, GameObject>();
+    public Dictionary<GameObject, GameObject> spawnedObjects = new Dictionary<GameObject, GameObject>();
 
     private void Start()
     {
