@@ -65,6 +65,11 @@ public class GameManager : MonoBehaviour
         List<string> CollectedArtifacts = user.userData.collectedPieces;
         currentArtifactsCount = CollectedArtifacts.Count();
 
+        foreach (string artifact in user.userData.collectedPieces)
+        {
+            Debug.Log(artifact);
+        }
+
         foreach(GameObject artifactPageObject in artifactPageManager.artifactPages)
         {
             ArtifactPageInfo artifactPageInfo = artifactPageObject.GetComponent<ArtifactPageInfo>();
@@ -75,9 +80,7 @@ public class GameManager : MonoBehaviour
             foreach (Artifact artifact in artifactList)
             {
                 GameObject artifactObject = artifact.artifact;
-                allArtifactsName.Append(artifactObject.name);
-
-                
+                allArtifactsName.Add(artifactObject.name);
 
                 if (!user.userData.collectedPieces.Contains(artifact.artifact.name))
                 {

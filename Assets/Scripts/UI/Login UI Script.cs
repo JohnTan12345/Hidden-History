@@ -63,12 +63,12 @@ public class LoginUIScript : MonoBehaviour
         if (isLogin)
         {
             loginButtonText.text = "Login";
-            changeLoginSignUpText.text = "No Account? Click here";
+            changeLoginSignUpText.text = "Don't have an account? Sign up here!";
         }
         else
         {
             loginButtonText.text = "Sign Up";
-            changeLoginSignUpText.text = "Have an Account? Click here";
+            changeLoginSignUpText.text = "Have an Account? Login here!";
         }
     }
 

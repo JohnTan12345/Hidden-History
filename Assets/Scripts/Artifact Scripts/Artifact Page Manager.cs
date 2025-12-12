@@ -44,12 +44,15 @@ public class ArtifactPageManager : MonoBehaviour
             throw new System.Exception("You can't have 0 or less artifact pages!\nDid you forget to add in the pages to Artifact Page Manager?");
         }
 
-        foreach (GameObject artifactPage in artifactPages) // Disable all artifact pages
+        for (int i = 0; i < artifactPages.Length; i++) // Disable all artifact pages
         {
+            GameObject artifactPage = artifactPages[i];
             if (artifactPage != artifactPages[pageNumber])
             {
                 artifactPage.SetActive(false);
             }
+            Debug.Log(paintingFrame);
+            artifactPage.GetComponent<ArtifactPageInfo>().paintingFrame = paintingFrame;
         }
 
         // Append functions to buttons

@@ -26,6 +26,8 @@ public class ArtifactPageInfo : MonoBehaviour
     [Tooltip("The painting that is shown after collecting all artifacts")]
     [HideInInspector]
     private int collected = 0;
+
+    public GameObject paintingFrame;
     
     [HideInInspector]
     public bool artifactsLoaded = false;
@@ -36,12 +38,15 @@ public class ArtifactPageInfo : MonoBehaviour
 
     public IEnumerator LoadArtifacts()
     {
+        Debug.Log(paintingFrame);
         collectedArtifacts = new List<GameObject>();
+        collected = 0;
         yield return new WaitUntil(() => Users.DefaultUserLoaded); // Wait for default user to load
         User user = Users.GetDefaultUser();
-        foreach (Artifact artifact in artifacts)
+        for (int i = 0; i < artifacts.Length; i++)
         {
-            Debug.Log("searching");
+            Artifact artifact = artifacts[i];
+            Debug.Log(artifact.artifact.name);
             if (user.userData.collectedPieces.Contains(artifact.artifact.name)) // If user collected the artifact already
             {
                 Debug.Log("hit");
@@ -58,6 +63,9 @@ public class ArtifactPageInfo : MonoBehaviour
         if (collected == artifacts.Length)
         {
             onAllArtifactCollected();
+        } else
+        {
+            paintingFrame.SetActive(false);
         }
     }
 
@@ -66,6 +74,7 @@ public class ArtifactPageInfo : MonoBehaviour
         artifactGroupGameObject.SetActive(false);
         silhouette.SetActive(false);
         painting.GetChild(0).gameObject.SetActive(true);
+        paintingFrame.SetActive(true);
     }
 }
 

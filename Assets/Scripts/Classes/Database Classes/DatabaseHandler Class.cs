@@ -36,6 +36,7 @@ public class DatabaseHandler
 
         try
         {
+             FirebaseDatabase.DefaultInstance.SetPersistenceEnabled(false); // Stops firebase from making a cache of the database (keeps making the function get user data before it's edited)
             DatabaseReference userDatadatabase = FirebaseDatabase.DefaultInstance.GetReference("UserData"); // Go straight to user data 
             return userDatadatabase.Child(user.UserID).SetRawJsonValueAsync(JsonUtility.ToJson(userData));  // Save the user data to UID
         }
