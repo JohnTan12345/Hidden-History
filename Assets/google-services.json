@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "148678368957",
+    "firebase_url": "https://hidden-history-c62a6-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "hidden-history-c62a6",
+    "storage_bucket": "hidden-history-c62a6.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:148678368957:android:2b96389d05d263da3d21d4",
+        "android_client_info": {
+          "package_name": "com.NpAsg.Hidden_History"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAKXJ9Bmr8EAE7pmqoqbEH7TXxP1GChSJo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

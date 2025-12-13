@@ -1,0 +1,89 @@
+//-----------------------------------------------------------------------------------------------------------------
+// Created By: Rayner Chua
+// Description: Artiface Page
+//-----------------------------------------------------------------------------------------------------------------
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+using UnityEngine.UI;
+[Serializable]
+public class ArtifactPageInfo : MonoBehaviour
+{
+    [Header("Artifact Information")]
+    public string title;
+    public string description;
+    public GameObject silhouette;
+    public Transform painting;
+    public Texture2D trackedImage;
+
+    [Header("Artifact Images")]
+    [Tooltip("This refers to the gameobject that contains all the artifacts")]
+    public GameObject artifactGroupGameObject;
+    public Artifact[] artifacts;
+    private List<GameObject> collectedArtifacts;
+    [Tooltip("The painting that is shown after collecting all artifacts")]
+    [HideInInspector]
+    private int collected = 0;
+    [HideInInspector]
+    public GameObject paintingFrame;
+
+    [HideInInspector]
+    public bool artifactsLoaded = false;
+    void OnEnable()
+    {
+        StartCoroutine(LoadArtifacts());
+    }
+
+    public IEnumerator LoadArtifacts()
+    {
+        silhouette.SetActive(true);
+        artifactGroupGameObject.SetActive(true);
+        painting.GetChild(0).gameObject.SetActive(false);
+        collectedArtifacts = new List<GameObject>();
+        collected = 0;
+        yield return new WaitUntil(() => Users.DefaultUserLoaded); // Wait for default user to load
+        User user = Users.GetDefaultUser();
+        for (int i = 0; i < artifacts.Length; i++)
+        {
+            Artifact artifact = artifacts[i];
+            Debug.Log(artifact.artifact.name);
+            if (user.userData.collectedPieces.Contains(artifact.artifact.name)) // If user collected the artifact already
+            {
+                Debug.Log("hit");
+                collectedArtifacts.Add(artifact.artifact);
+                artifact.artifact.GetComponent<Image>().color = new Color(255, 255, 255, 255);
+                collected++;
+            }
+            else
+            {
+                artifact.artifact.GetComponent<Image>().color = new Color(255, 255, 255, 0);
+            }
+        }
+
+        if (collected == artifacts.Length)
+        {
+            onAllArtifactCollected();
+        } else
+        {
+            paintingFrame.SetActive(false);
+        }
+    }
+
+    private void onAllArtifactCollected() // Enable the painting and disable the artifacts
+    {
+        artifactGroupGameObject.SetActive(false);
+        silhouette.SetActive(false);
+        painting.GetChild(0).gameObject.SetActive(true);
+        paintingFrame.SetActive(true);
+    }
+}
+
+[Serializable]
+public class Artifact
+{
+    public GameObject artifact;
+    public GameObject artifactPrefab;
+}

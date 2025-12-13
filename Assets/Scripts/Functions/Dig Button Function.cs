@@ -1,0 +1,99 @@
+//-----------------------------------------------------------------------------------------------------------------
+// Created By: John Tan
+// Description: Functions for the dig button
+//-----------------------------------------------------------------------------------------------------------------
+
+using UnityEngine;
+using UnityEngine.UI;
+
+[RequireComponent(typeof(Button))] // Always add the button component when this script is added
+public class DigButtonFunction : MonoBehaviour
+{
+    [SerializeField]
+    private ImageTracker imageTracker;
+    [SerializeField]
+    private GameManager gameManager;
+    [Header("Progress Bar")]
+    [SerializeField]
+    [Tooltip("This refers to the Progress Bar entirely")]
+    private GameObject DigProgressBarObject;
+    [SerializeField]
+    [Tooltip("This refers to the bar INSIDE the progress bar")]
+    private GameObject DigProgressBar;
+    private Button digButton;
+    [Header("Found Panel UI")]
+    [SerializeField]
+    [Tooltip("The button inside the \"found\" panel")]
+    private GameObject foundPanel;
+    [SerializeField]
+    private Button acknowledgeButton;
+    
+    private GameObject trackedObject;
+    private GameObject foundTrackedObject;
+    private ArtifactInfo artifactInfo;
+
+    [Header("SFX")]
+    [SerializeField]
+    private AudioSource diggingSFX;
+    [SerializeField]
+    private AudioSource diggingDoneSFX;
+
+    void Start()
+    {
+        digButton = GetComponent<Button>();
+        digButton.onClick.AddListener(OnDig);
+        acknowledgeButton.onClick.AddListener(onButtonPressed);
+        imageTracker.OnTrackedObjectChanged += OnObjectActive; // Always fire OnObjectActive when tracked object changes
+    }
+
+    private void OnObjectActive(GameObject newTrackedObject)
+    {
+        trackedObject = newTrackedObject;
+        artifactInfo = newTrackedObject.GetComponent<ArtifactInfo>();
+        UI_Update();
+    }
+    private void OnDig()
+    {
+        if (artifactInfo == null) // Check if artifactInfo is null
+        {
+            OnObjectActive(imageTracker.trackedObject);
+        }
+
+        
+        artifactInfo.digProgess++;
+
+        if (artifactInfo.digProgess == 5) // If player pressed the button 5 times
+        {
+            diggingDoneSFX.Play(); // Play digging done SFX
+            Users.GetDefaultUser().userData.collectedPieces.Add(artifactInfo.artifact.name); // Add artifact to player collected artifacts
+            foundTrackedObject = trackedObject;
+            gameManager.CurrentArtifactsCount++;
+            Users.GetDefaultUser().SaveUserDataAsync(); // Save user info for every successful digging
+            Destroy(trackedObject.GetComponent<ArtifactInfo>().dirtMound);
+            imageTracker.spawnedPrefabs[artifactInfo.trackedImageName].Remove(trackedObject);
+
+            foundPanel.SetActive(true);
+        }
+        else if (artifactInfo.digProgess > 5)
+        {
+            return;
+        }
+        else
+        {
+            diggingSFX.Play(); // Play digging SFX
+        }
+        UI_Update();
+    }
+
+    private void onButtonPressed()
+    {
+        foundPanel.SetActive(false);
+        Destroy(foundTrackedObject); // Remove the object
+        imageTracker.SetUIActive(false);
+    }
+    private void UI_Update()
+    {
+        print(artifactInfo.digProgess / 5f);
+        DigProgressBar.transform.localScale = new Vector3(artifactInfo.digProgess/5f, 1, 1);
+    }
+}
