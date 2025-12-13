@@ -45,6 +45,9 @@ public class GameManager : MonoBehaviour
         if (artifactsLoaded && CurrentArtifactsCount >= totalArtifactsCount)
         {
             OnAllArtifactsCollected();
+        } else
+        {
+            gameCompletedUI.SetActive(false);
         }
     }
     public void OnArtifactCountChanged() // When there is a change to current amount
