@@ -5,7 +5,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
@@ -42,7 +41,7 @@ public class ImageTracker : MonoBehaviour
 
     public void SetupPrefab(List<Artifact> artifacts, string trackedImageName, bool finalPrefabList = false)
     {
-        List<GameObject> prefabs = new List<GameObject>();
+        List<GameObject> prefabs = new List<GameObject>(); // Create a list of prefabs
         Debug.Log("Setting up Prefabs");
         try{
             foreach(Artifact artifact in artifacts) 
@@ -50,14 +49,15 @@ public class ImageTracker : MonoBehaviour
                 GameObject prefab = artifact.artifactPrefab;
                 Debug.Log("Found a prefab");
 
-                GameObject newPrefab = Instantiate(prefab);
+                GameObject newPrefab = Instantiate(prefab); // Spawn prefab
                 newPrefab.name = prefab.name;
                 newPrefab.SetActive(false);
                 prefabs.Add(newPrefab);
                 spawnedObjects.Add(newPrefab, prefab);
-                ArtifactInfo newArtifactInfo = newPrefab.AddComponent<ArtifactInfo>();
+
+                ArtifactInfo newArtifactInfo = newPrefab.AddComponent<ArtifactInfo>(); // Add artifact info
                 newArtifactInfo.artifact = artifact.artifact;
-                newArtifactInfo.trackedImageName = trackedImageName;
+                newArtifactInfo.trackedImageName = trackedImageName; // Set tracking image name
 
                 GameObject newDirtMoundPrefab = Instantiate(dirtMoundPrefab); // Add in dirt mound
                 newArtifactInfo.dirtMound = newDirtMoundPrefab;
@@ -70,7 +70,7 @@ public class ImageTracker : MonoBehaviour
         {
             Debug.Log("There is no artifacts to get or something went wrong");
         }
-        spawnedPrefabs.Add(trackedImageName, prefabs);
+        spawnedPrefabs.Add(trackedImageName, prefabs); // Add list to spawnedPrefabs linked to tracked Image Name
         PrefabsLoaded = finalPrefabList;
     }
 
@@ -116,12 +116,14 @@ public class ImageTracker : MonoBehaviour
                 try {
                     if (trackedImage.referenceImage.name != previousTrackedImage || previousSpawnedPrefab == null)
                     {
+                        // Randomly spawn an artifact
                         spawnedPrefab = spawnedPrefabs[trackedImage.referenceImage.name][UnityEngine.Random.Range(0, spawnedPrefabs[trackedImage.referenceImage.name].Count)];
                         previousSpawnedPrefab = spawnedPrefab;
                         previousTrackedImage = trackedImage.referenceImage.name;
                     }
                     else
                     {
+                        // Spawn the same artifact
                         spawnedPrefab = previousSpawnedPrefab;
                     }
                     

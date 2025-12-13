@@ -32,6 +32,12 @@ public class DigButtonFunction : MonoBehaviour
     private GameObject foundTrackedObject;
     private ArtifactInfo artifactInfo;
 
+    [Header("SFX")]
+    [SerializeField]
+    private AudioSource diggingSFX;
+    [SerializeField]
+    private AudioSource diggingDoneSFX;
+
     void Start()
     {
         digButton = GetComponent<Button>();
@@ -53,14 +59,16 @@ public class DigButtonFunction : MonoBehaviour
             OnObjectActive(imageTracker.trackedObject);
         }
 
+        
         artifactInfo.digProgess++;
 
         if (artifactInfo.digProgess == 5) // If player pressed the button 5 times
         {
+            diggingDoneSFX.Play(); // Play digging done SFX
             Users.GetDefaultUser().userData.collectedPieces.Add(artifactInfo.artifact.name); // Add artifact to player collected artifacts
             foundTrackedObject = trackedObject;
             gameManager.CurrentArtifactsCount++;
-            Users.GetDefaultUser().SaveUserDataAsync();
+            Users.GetDefaultUser().SaveUserDataAsync(); // Save user info for every successful digging
             Destroy(trackedObject.GetComponent<ArtifactInfo>().dirtMound);
             imageTracker.spawnedPrefabs[artifactInfo.trackedImageName].Remove(trackedObject);
 
@@ -69,6 +77,10 @@ public class DigButtonFunction : MonoBehaviour
         else if (artifactInfo.digProgess > 5)
         {
             return;
+        }
+        else
+        {
+            diggingSFX.Play(); // Play digging SFX
         }
         UI_Update();
     }

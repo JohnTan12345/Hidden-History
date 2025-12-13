@@ -1,12 +1,11 @@
 //-----------------------------------------------------------------------------------------------------------------
-// Created By: Rayner Chua
+// Created By: John Tan
 // Description: Game Scene UI Script
 //-----------------------------------------------------------------------------------------------------------------
 
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -45,6 +44,8 @@ public class GameUIScript : MonoBehaviour
     {
         yield return new WaitUntil(() => Users.DefaultUserLoaded); // Yield coroutine to wait for default user to load
         ChangeMissionText(Users.GetDefaultUser().userData.currentMission); // Set mission to current mission
+        restartButton.onClick.AddListener(OnUserRestart);
+        exitButton.onClick.AddListener(ExitApplication);
 
         foreach (ButtonRedirectory buttonRedirectory in buttons) // Add listeners to every button
         {
@@ -68,14 +69,19 @@ public class GameUIScript : MonoBehaviour
         missionTrackerTextUI.text = missionTrackerLabel + ": " + newValueWithMax;
     }
 
-    public async void onUserRestart()
+    public async void OnUserRestart()
     {
         User user = Users.GetDefaultUser();
-        user.userData = new UserData();
+        user.userData = new UserData(); // Set new user Data
         
-        await user.SaveUserDataAsync();
+        await user.SaveUserDataAsync(); // Wait for database to save user data
         gameManager.artifactsLoaded = false;
-        StartCoroutine(gameManager.LoadUserData());
+        StartCoroutine(gameManager.LoadUserData()); // Load data
+    }
+
+    public void ExitApplication()
+    {
+        Application.Quit(); // Stops application and quits
     }
 }
 

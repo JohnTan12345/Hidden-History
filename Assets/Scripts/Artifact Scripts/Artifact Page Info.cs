@@ -39,7 +39,6 @@ public class ArtifactPageInfo : MonoBehaviour
 
     public IEnumerator LoadArtifacts()
     {
-        paintingFrame.SetActive(false);
         silhouette.SetActive(true);
         artifactGroupGameObject.SetActive(true);
         painting.GetChild(0).gameObject.SetActive(false);
