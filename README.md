@@ -83,7 +83,7 @@ Icons used: White Outlined
 - https://icons8.com/icon/20319/user-manual 
 - https://icons8.com/icon/59878/search 
 ## Images:
-Scroll backdrop: https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDi3AduYHkZhuxyUcs6UXCtZXYv0Nl5uiniQ&s 
+Scroll backdrop: https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDi3AduYHkZhuxyUcs6UXCtZXYv0Nl5uiniQ&s
 The 2D sprites used to represent the visible artifacts/elements were created with the help of Adobe Firefly AI Image Gen.
 Paintings & their respective contents:
 - https://www.roots.gov.sg/Collection-Landing/listing/1026159  [Watermelons] 
