@@ -86,6 +86,8 @@ public class LoginUIScript : MonoBehaviour
 
     private async void Login()
     {
+        errorMessage.text = "working";
+        errorMessage.gameObject.SetActive(true);
         AccountAuthResult accountAuthResult = await Auth.LoginAccountAsync(email, password); // Wait for firebase
 
         AuthResultHandler(accountAuthResult);
